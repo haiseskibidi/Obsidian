@@ -48,7 +48,6 @@
     "//Цвета",
     "//Ежедневник",
     "//Шаблоны",
-    "//scripts",
     "//scripts/scripts/git-hooks"
   ],
   "expandFolderOnClick": true,
@@ -56,7 +55,9 @@
   "suppressedWarnings": [],
   "spaceSubFolder": ".space",
   "hiddenFiles": [
-    "Визуал_Гиггер/Pasted Image 20260615223423_684.png"
+    "Визуал_Гиггер/Pasted Image 20260615223423_684.png",
+    "scripts",
+    "Tags"
   ],
   "hiddenExtensions": [
     ".mdb",
