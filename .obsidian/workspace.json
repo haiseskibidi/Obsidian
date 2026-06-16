@@ -75,7 +75,7 @@
             }
           },
           {
-            "id": "343b1c9b924454bd",
+            "id": "8ebd0ac9c72f3bfb",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -182,8 +182,8 @@
             "state": {
               "type": "excalidraw-sidepanel",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "excalidraw-sidepanel"
+              "icon": "excalidraw-icon",
+              "title": "Excalidraw Sidepanel"
             }
           }
         ],
@@ -203,19 +203,21 @@
       "templates:Вставить шаблон": false,
       "command-palette:Открыть палитру команд": false,
       "bases:Создать новую базу": false,
-      "markdown-importer:Импорт Markdown-файлов": false,
       "obsidian-excalidraw-plugin:Создать новый чертеж": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "omnisearch:Omnisearch": false,
+      "obsidian-git:Open Git source control": false,
+      "markdown-importer:Импорт Markdown-файлов": false
     }
   },
   "active": "36f1810f81a083a3",
   "lastOpenFiles": [
-    "Tags",
-    "Визуал_Гиггер/Гиггер.md",
-    "Daily/2026-06-16.md",
     "Daily/2026-05-16.md",
+    "Daily/2026-06-16.md",
+    "Визуал_Гиггер/Гиггер.md",
     "Templates/Daily Template.md",
+    "Tags",
     "Daily/2026-06-15.md",
     "Daily/Daily.md",
     "Daily",
