@@ -47,7 +47,9 @@
     "//Визуал_Гиггер",
     "//Цвета",
     "//Ежедневник",
-    "//Шаблоны"
+    "//Шаблоны",
+    "//scripts",
+    "//scripts/scripts/git-hooks"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",

@@ -23,14 +23,12 @@
             "id": "1f4fbf40a1bb94c3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "mk-space",
               "state": {
-                "file": "Ежедневник/2026-06-16.md",
-                "mode": "source",
-                "source": false
+                "path": "scripts/git-hooks"
               },
               "icon": "lucide-file",
-              "title": "2026-06-16"
+              "title": "git-hooks"
             }
           }
         ],
@@ -225,9 +223,13 @@
   },
   "active": "1f4fbf40a1bb94c3",
   "lastOpenFiles": [
+    "Ежедневник/2026-06-16.md",
+    "scripts/git-hooks/post-commit",
+    "scripts/obsidian_commit_logger.py",
+    "scripts/git-hooks",
+    "scripts",
     "Шаблоны/Шаблон ежедневника.md",
     "Шаблоны/Шаблоны.md",
-    "Ежедневник/2026-06-16.md",
     "Цвета/Палитры цветов.md",
     "Ежедневник/2026-05-16.md",
     "Визуал_Гиггер/Гиггер.md",
