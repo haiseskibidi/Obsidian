@@ -35,17 +35,12 @@
             "id": "9fd42c50739c7fe4",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "excalidraw",
               "state": {
-                "file": "Цвета/Untitled.canvas",
-                "viewState": {
-                  "x": -9,
-                  "y": -269,
-                  "zoom": 0
-                }
+                "file": "Цвета/Палитры цветов.md"
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "Untitled"
+              "icon": "excalidraw-icon",
+              "title": "Палитры цветов"
             }
           }
         ],
@@ -240,9 +235,9 @@
   },
   "active": "9fd42c50739c7fe4",
   "lastOpenFiles": [
+    "Цвета/Шаблон палитры.md",
     "Цвета/Untitled.canvas",
     "Цвета/Палитры цветов.md",
-    "Цвета/Шаблон палитры.md",
     "Цвета/Цвета.md",
     "Планы на Гиггер.md",
     "Визуал_Гиггер/Гиггер.md",
