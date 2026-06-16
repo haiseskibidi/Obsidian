@@ -14,6 +14,10 @@ def main():
         commit_hash, commit_msg = result.stdout.strip().split('|', 1)
     except Exception as e:
         return
+        
+    # Ignore Obsidian auto-sync commits
+    if project_name.lower() == "me" or "vault backup" in commit_msg.lower():
+        return
 
     now = datetime.datetime.now()
     date_str = now.strftime("%Y-%m-%d")
@@ -23,6 +27,10 @@ def main():
     
     obsidian_msg = os.environ.get('OBSIDIAN_MSG')
     tick = chr(96)
+    
+    # Use short hash (7 characters) if the full hash was somehow returned, though %h usually does this
+    if len(commit_hash) > 7:
+        commit_hash = commit_hash[:7]
     
     if obsidian_msg:
         log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} {commit_msg} — {obsidian_msg}\n"
