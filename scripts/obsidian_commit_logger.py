@@ -28,14 +28,17 @@ def main():
     obsidian_msg = os.environ.get('OBSIDIAN_MSG')
     tick = chr(96)
     
-    # Use short hash (7 characters) if the full hash was somehow returned, though %h usually does this
+    # Use short hash (7 characters) if the full hash was somehow returned
     if len(commit_hash) > 7:
         commit_hash = commit_hash[:7]
+        
+    # Highlight the commit message for Obsidian using ==
+    highlighted_msg = f"=={commit_msg}=="
     
     if obsidian_msg:
-        log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} {commit_msg} — {obsidian_msg}\n"
+        log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} {highlighted_msg} — {obsidian_msg}\n"
     else:
-        log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} {commit_msg}\n"
+        log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} {highlighted_msg}\n"
     
     if not os.path.exists(daily_note_path):
         with open(daily_note_path, 'w', encoding='utf-8') as f:
