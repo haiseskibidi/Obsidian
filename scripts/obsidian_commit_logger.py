@@ -21,8 +21,13 @@ def main():
     
     daily_note_path = os.path.join(OBSIDIAN_VAULT_PATH, f"{date_str}.md")
     
+    obsidian_msg = os.environ.get('OBSIDIAN_MSG')
     tick = chr(96)
-    log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} — {commit_msg}\n"
+    
+    if obsidian_msg:
+        log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} {commit_msg} — {obsidian_msg}\n"
+    else:
+        log_entry = f"- [{time_str}] 📁 **{project_name}**: {tick}{commit_hash}{tick} {commit_msg}\n"
     
     if not os.path.exists(daily_note_path):
         with open(daily_note_path, 'w', encoding='utf-8') as f:
