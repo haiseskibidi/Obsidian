@@ -4,19 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "ab5726a2b1318332",
+        "id": "8274aa61183503a8",
         "type": "tabs",
         "children": [
           {
-            "id": "27b235b1a4bf0951",
+            "id": "36f1810f81a083a3",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Визуал_Гиггер/Гиггер.md"
+                "file": "Daily/2026-06-16.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "excalidraw-icon",
-              "title": "Гиггер"
+              "icon": "lucide-file",
+              "title": "2026-06-16"
             }
           }
         ]
@@ -73,7 +75,7 @@
             }
           },
           {
-            "id": "56160de676a0ff31",
+            "id": "e89ac476930cc41e",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -204,21 +206,32 @@
       "obsidian-excalidraw-plugin:Создать новый чертеж": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
       "templater-obsidian:Templater": false,
-      "omnisearch:Omnisearch": false
+      "omnisearch:Omnisearch": false,
+      "obsidian-git:Open Git source control": false,
+      "markdown-importer:Импорт Markdown-файлов": false
     }
   },
-  "active": "27b235b1a4bf0951",
+  "active": "36f1810f81a083a3",
   "lastOpenFiles": [
-    "Планы на Гиггер.md",
     "Визуал_Гиггер/Гиггер.md",
+    "Daily/2026-06-16.md",
+    "Daily/2026-05-16.md",
+    "Templates/Daily Template.md",
+    "Tags",
+    "Daily/2026-06-15.md",
+    "Daily/Daily.md",
+    "Daily",
+    "Templates/Templates.md",
+    "Templates",
+    "Визуал_Гиггер/ы.md",
     "Визуал_Гиггер/Визуал_Гиггер.md",
+    "Vault.md",
+    "Планы на Гиггер.md",
     "Визуал_Гиггер/Pasted Image 20260615223423_684.png",
     "Визуал_Гиггер/Pasted Image 20260615223327_005.png",
     "Untitled.md",
     "Визуал_Гиггер",
     "Untitled 1.md",
-    "Vault.md",
-    "Tags/Tags.md",
-    "Tags"
+    "Tags/Tags.md"
   ]
 }

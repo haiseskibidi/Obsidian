@@ -38,10 +38,12 @@
   "vaultSelector": true,
   "deleteFileOption": "trash",
   "expandedSpaces": [
-    "//Tags",
     "/",
     "//Excalidraw",
-    "//Визуал_Гиггер"
+    "//Templates",
+    "//Daily",
+    "//Визуал_Гиггер",
+    "//Tags"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
