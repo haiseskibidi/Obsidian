@@ -23,12 +23,14 @@
             "id": "1f4fbf40a1bb94c3",
             "type": "leaf",
             "state": {
-              "type": "mk-space",
+              "type": "markdown",
               "state": {
-                "path": "scripts/git-hooks"
+                "file": "Ежедневник/2026-06-16.md",
+                "mode": "source",
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "git-hooks"
+              "title": "2026-06-16"
             }
           }
         ],
