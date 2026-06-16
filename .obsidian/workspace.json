@@ -23,13 +23,25 @@
             "id": "1f4fbf40a1bb94c3",
             "type": "leaf",
             "state": {
+              "type": "mk-space",
+              "state": {
+                "path": "Цвета"
+              },
+              "icon": "lucide-file",
+              "title": "Цвета"
+            }
+          },
+          {
+            "id": "9fd42c50739c7fe4",
+            "type": "leaf",
+            "state": {
               "type": "canvas",
               "state": {
                 "file": "Цвета/Untitled.canvas",
                 "viewState": {
-                  "x": -12.5,
-                  "y": 139.06752588338998,
-                  "zoom": -0.6666666666666666
+                  "x": -9,
+                  "y": -269,
+                  "zoom": 0
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -37,7 +49,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -91,7 +103,7 @@
             }
           },
           {
-            "id": "573892ce4eec202c",
+            "id": "5769d9416a419c43",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -121,7 +133,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Цвета/Untitled.canvas",
+                "file": "Цвета/Шаблон палитры.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -131,7 +143,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Обратные ссылки для Untitled"
+              "title": "Обратные ссылки для Шаблон палитры"
             }
           },
           {
@@ -226,14 +238,14 @@
       "markdown-importer:Импорт Markdown-файлов": false
     }
   },
-  "active": "1f4fbf40a1bb94c3",
+  "active": "9fd42c50739c7fe4",
   "lastOpenFiles": [
-    "Цвета/Палитры цветов.md",
     "Цвета/Untitled.canvas",
+    "Цвета/Палитры цветов.md",
+    "Цвета/Шаблон палитры.md",
+    "Цвета/Цвета.md",
     "Планы на Гиггер.md",
     "Визуал_Гиггер/Гиггер.md",
-    "Цвета/Цвета.md",
-    "Цвета/Untitled.md",
     "Визуал_Гиггер/Визуал_Гиггер.md",
     "Цвета",
     "Шаблоны/Шаблон ежедневника.md",
