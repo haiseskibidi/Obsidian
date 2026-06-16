@@ -30,23 +30,9 @@
               "icon": "lucide-file",
               "title": "Цвета"
             }
-          },
-          {
-            "id": "9fd42c50739c7fe4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Ежедневник/2026-06-16.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "2026-06-16"
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -235,12 +221,12 @@
       "markdown-importer:Импорт Markdown-файлов": false
     }
   },
-  "active": "9fd42c50739c7fe4",
+  "active": "1f4fbf40a1bb94c3",
   "lastOpenFiles": [
-    "Ежедневник/2026-05-16.md",
     "Цвета/Палитры цветов.md",
-    "Визуал_Гиггер/Гиггер.md",
     "Ежедневник/2026-06-16.md",
+    "Ежедневник/2026-05-16.md",
+    "Визуал_Гиггер/Гиггер.md",
     "Планы на Гиггер.md",
     "Цвета/Шаблон палитры.md",
     "Pasted Image 20260616163913_356.png",
