@@ -268,10 +268,11 @@
             "version": 636,
             "versionNonce": 447784708,
             "isDeleted": false,
-            "boundElements": null,
+            "boundElements": [],
             "updated": 1781586465101,
             "link": null,
-            "locked": false
+            "locked": false,
+            "hasTextLink": false
           },
           {
             "id": "PotDlehN",

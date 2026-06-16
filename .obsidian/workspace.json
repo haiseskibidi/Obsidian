@@ -23,12 +23,12 @@
             "id": "1f4fbf40a1bb94c3",
             "type": "leaf",
             "state": {
-              "type": "mk-space",
+              "type": "excalidraw",
               "state": {
-                "path": "Цвета"
+                "file": "Цвета/Палитры цветов.md"
               },
-              "icon": "lucide-file",
-              "title": "Цвета"
+              "icon": "excalidraw-icon",
+              "title": "Палитры цветов"
             }
           }
         ],
@@ -116,6 +116,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Цвета/Палитры цветов.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +126,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Обратные ссылки"
+              "title": "Обратные ссылки для Палитры цветов"
             }
           },
           {
@@ -220,11 +221,11 @@
       "markdown-importer:Импорт Markdown-файлов": false
     }
   },
-  "active": "573892ce4eec202c",
+  "active": "1f4fbf40a1bb94c3",
   "lastOpenFiles": [
-    "Цвета/Цвета.md",
-    "Цвета/Палитры цветов.md",
     "Визуал_Гиггер/Гиггер.md",
+    "Цвета/Палитры цветов.md",
+    "Цвета/Цвета.md",
     "Визуал_Гиггер/Визуал_Гиггер.md",
     "Цвета",
     "Шаблоны/Шаблон ежедневника.md",
