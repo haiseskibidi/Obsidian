@@ -1,3 +1,6 @@
 {
-  "textFontFamily": "IBM Plex Sans"
+  "textFontFamily": "IBM Plex Sans",
+  "cssTheme": "",
+  "showRibbon": true,
+  "interfaceFontFamily": "IBM Plex Sans"
 }
