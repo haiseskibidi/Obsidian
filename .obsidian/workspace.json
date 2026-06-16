@@ -23,12 +23,12 @@
             "id": "1f4fbf40a1bb94c3",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "mk-space",
               "state": {
-                "file": "Цвета/Палитры цветов.md"
+                "path": "Цвета"
               },
-              "icon": "excalidraw-icon",
-              "title": "Палитры цветов"
+              "icon": "lucide-file",
+              "title": "Цвета"
             }
           }
         ],
@@ -64,7 +64,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#f4c2c2",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -96,7 +96,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -116,7 +116,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Визуал_Гиггер/Гиггер.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Обратные ссылки для Гиггер"
+              "title": "Обратные ссылки"
             }
           },
           {
@@ -197,8 +196,7 @@
               "title": "Excalidraw Sidepanel"
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "horizontal",
@@ -222,10 +220,11 @@
       "markdown-importer:Импорт Markdown-файлов": false
     }
   },
-  "active": "159381e033c44f4e",
+  "active": "573892ce4eec202c",
   "lastOpenFiles": [
-    "Визуал_Гиггер/Гиггер.md",
+    "Цвета/Цвета.md",
     "Цвета/Палитры цветов.md",
+    "Визуал_Гиггер/Гиггер.md",
     "Визуал_Гиггер/Визуал_Гиггер.md",
     "Цвета",
     "Шаблоны/Шаблон ежедневника.md",
