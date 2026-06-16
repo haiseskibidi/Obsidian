@@ -40,27 +40,36 @@
   "expandedSpaces": [
     "/",
     "//Excalidraw",
-    "//Templates",
     "//Daily",
+    "//Templates",
+    "//Tags",
+    "//Палитры цветов",
     "//Визуал_Гиггер",
-    "//Tags"
+    "//Цвета",
+    "//Ежедневник",
+    "//Шаблоны",
+    "//scripts/scripts/git-hooks"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
   "suppressedWarnings": [],
   "spaceSubFolder": ".space",
   "hiddenFiles": [
-    "Визуал_Гиггер/Pasted Image 20260615223423_684.png"
+    "Визуал_Гиггер/Pasted Image 20260615223423_684.png",
+    "scripts",
+    "Tags"
   ],
   "hiddenExtensions": [
     ".mdb",
     "_assets",
     "_blocks"
   ],
+  "newFileLocation": "root",
+  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
-  "inlineContextExpanded": true,
+  "inlineContextExpanded": false,
   "inlineContextProperties": true,
   "inlineContextSectionsExpanded": true,
   "banners": true,

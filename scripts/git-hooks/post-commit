@@ -1,0 +1,2 @@
+#!/bin/sh
+python "D:/Me/scripts/obsidian_commit_logger.py"
