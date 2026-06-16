@@ -40,10 +40,11 @@
   "expandedSpaces": [
     "/",
     "//Excalidraw",
-    "//Templates",
     "//Daily",
-    "//Визуал_Гиггер",
-    "//Tags"
+    "//Templates",
+    "//Tags",
+    "//Палитры цветов",
+    "//Цвета"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
