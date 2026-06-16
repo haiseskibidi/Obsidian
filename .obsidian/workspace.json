@@ -23,12 +23,17 @@
             "id": "1f4fbf40a1bb94c3",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "canvas",
               "state": {
-                "file": "Цвета/Палитры цветов.md"
+                "file": "Цвета/Untitled.canvas",
+                "viewState": {
+                  "x": -12.5,
+                  "y": 139.06752588338998,
+                  "zoom": -0.6666666666666666
+                }
               },
-              "icon": "excalidraw-icon",
-              "title": "Палитры цветов"
+              "icon": "lucide-layout-dashboard",
+              "title": "Untitled"
             }
           }
         ],
@@ -116,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Цвета/Палитры цветов.md",
+                "file": "Цвета/Untitled.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +131,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Обратные ссылки для Палитры цветов"
+              "title": "Обратные ссылки для Untitled"
             }
           },
           {
@@ -223,10 +228,12 @@
   },
   "active": "1f4fbf40a1bb94c3",
   "lastOpenFiles": [
-    "Цвета/Untitled.md",
     "Цвета/Палитры цветов.md",
-    "Цвета/Цвета.md",
+    "Цвета/Untitled.canvas",
+    "Планы на Гиггер.md",
     "Визуал_Гиггер/Гиггер.md",
+    "Цвета/Цвета.md",
+    "Цвета/Untitled.md",
     "Визуал_Гиггер/Визуал_Гиггер.md",
     "Цвета",
     "Шаблоны/Шаблон ежедневника.md",
@@ -242,7 +249,6 @@
     "Шаблоны",
     "Визуал_Гиггер/ы.md",
     "Vault.md",
-    "Планы на Гиггер.md",
     "Визуал_Гиггер/Pasted Image 20260615223423_684.png",
     "Визуал_Гиггер/Pasted Image 20260615223327_005.png",
     "Untitled.md",
