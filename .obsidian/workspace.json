@@ -64,7 +64,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#800020",
+                "query": "tag:#f4c2c2",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -222,7 +222,7 @@
       "markdown-importer:Импорт Markdown-файлов": false
     }
   },
-  "active": "1f4fbf40a1bb94c3",
+  "active": "159381e033c44f4e",
   "lastOpenFiles": [
     "Визуал_Гиггер/Гиггер.md",
     "Цвета/Палитры цветов.md",
