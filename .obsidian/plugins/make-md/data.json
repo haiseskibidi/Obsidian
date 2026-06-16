@@ -44,7 +44,8 @@
     "//Templates",
     "//Tags",
     "//Палитры цветов",
-    "//Цвета"
+    "//Цвета",
+    "//Визуал_Гиггер"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",

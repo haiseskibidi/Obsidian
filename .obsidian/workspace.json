@@ -64,7 +64,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#800020",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -96,7 +96,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -224,8 +224,9 @@
   },
   "active": "1f4fbf40a1bb94c3",
   "lastOpenFiles": [
-    "Визуал_Гиггер/Визуал_Гиггер.md",
+    "Визуал_Гиггер/Гиггер.md",
     "Цвета/Палитры цветов.md",
+    "Визуал_Гиггер/Визуал_Гиггер.md",
     "Цвета",
     "Шаблоны/Шаблон ежедневника.md",
     "//Untitled.canvas",
@@ -233,7 +234,6 @@
     "Шаблоны/Шаблоны.md",
     "Daily/Ежедневник.md",
     "Ежедневник/2026-06-16.md",
-    "Визуал_Гиггер/Гиггер.md",
     "Ежедневник/2026-05-16.md",
     "Tags",
     "Daily/2026-06-15.md",
