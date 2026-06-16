@@ -23,12 +23,14 @@
             "id": "1f4fbf40a1bb94c3",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Цвета/Палитры цветов.md"
+                "file": "Цвета/Untitled.md",
+                "mode": "preview",
+                "source": false
               },
-              "icon": "excalidraw-icon",
-              "title": "Палитры цветов"
+              "icon": "lucide-file",
+              "title": "Untitled"
             }
           }
         ],
@@ -116,7 +118,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Цвета/Палитры цветов.md",
+                "file": "Цвета/Untitled.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +128,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Обратные ссылки для Палитры цветов"
+              "title": "Обратные ссылки для Untitled"
             }
           },
           {
@@ -223,8 +225,9 @@
   },
   "active": "1f4fbf40a1bb94c3",
   "lastOpenFiles": [
-    "Цвета/Цвета.md",
     "Цвета/Палитры цветов.md",
+    "Цвета/Untitled.md",
+    "Цвета/Цвета.md",
     "Визуал_Гиггер/Гиггер.md",
     "Визуал_Гиггер/Визуал_Гиггер.md",
     "Цвета",
