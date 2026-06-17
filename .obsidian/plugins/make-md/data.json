@@ -49,7 +49,8 @@
     "//Шаблоны",
     "//scripts/scripts/git-hooks",
     "//Ежедневник",
-    "//Zenith игра"
+    "//Zenith игра",
+    "//ПГС вопросы"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
