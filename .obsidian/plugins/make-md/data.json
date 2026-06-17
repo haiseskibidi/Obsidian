@@ -46,9 +46,9 @@
     "//Палитры цветов",
     "//Визуал_Гиггер",
     "//Цвета",
-    "//Ежедневник",
     "//Шаблоны",
-    "//scripts/scripts/git-hooks"
+    "//scripts/scripts/git-hooks",
+    "//Ежедневник"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -64,8 +64,6 @@
     "_assets",
     "_blocks"
   ],
-  "newFileLocation": "root",
-  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
