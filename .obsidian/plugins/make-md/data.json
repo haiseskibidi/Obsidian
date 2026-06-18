@@ -49,8 +49,7 @@
     "//Шаблоны",
     "//scripts/scripts/git-hooks",
     "//Zenith игра",
-    "//ПГС вопросы",
-    "//WEB/WEB/Архитектура"
+    "//ПГС вопросы"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
