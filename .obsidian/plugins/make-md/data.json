@@ -50,7 +50,8 @@
     "//scripts/scripts/git-hooks",
     "//Zenith игра",
     "//ПГС вопросы",
-    "//Ежедневник"
+    "//Ежедневник",
+    "//Скриншоты"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
