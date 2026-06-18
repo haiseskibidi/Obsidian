@@ -51,8 +51,8 @@
     "//Ежедневник",
     "//Zenith игра",
     "//ПГС вопросы",
-    "//WEB",
-    "//WEB/WEB/Архитектура"
+    "//WEB/WEB/Архитектура",
+    "//WEB"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
