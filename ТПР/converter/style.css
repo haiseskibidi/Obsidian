@@ -206,3 +206,18 @@ body {
     display: block;
   }
 }
+
+/* Real-time Text Update Button styling */
+.textarea-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.text-update-btn {
+  width: auto !important;
+  padding: 8px 16px !important;
+  font-size: 0.75rem !important;
+}

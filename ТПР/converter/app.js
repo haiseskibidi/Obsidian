@@ -44,6 +44,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadPdfBtn = document.getElementById('download-pdf-btn');
   const pagesGallery = document.getElementById('pages-gallery');
   const printContainer = document.getElementById('print-container');
+  const updateTextBtn = document.getElementById('update-text-btn');
+  
+  // Settings elements for real-time update
+  const paperSelect = document.getElementById('paper-select');
+  const jitterIncline = document.getElementById('jitter-incline');
+  const jitterSize = document.getElementById('jitter-size');
+  const jitterMargin = document.getElementById('jitter-margin');
+
+  // Debounced real-time render helper
+  let renderTimeout;
+  function triggerRender() {
+    clearTimeout(renderTimeout);
+    renderTimeout = setTimeout(() => {
+      if (typeof window.generateNotebook === 'function') {
+        window.generateNotebook();
+      }
+    }, 150);
+  }
 
   // Default text relating to user's current project (ТПР)
   textInput.value = `Теория принятия решений (ТПР) — это научная дисциплина, изучающая закономерности выбора людьми путей решения задач.
@@ -54,28 +72,34 @@ document.addEventListener('DOMContentLoaded', () => {
 Данный конспект сгенерирован автоматически в реальном времени!`;
   updateCharCount();
 
-  // Event Listeners for UI Value Labels
+  // Event Listeners for UI Value Labels and Real-time Rendering
   textInput.addEventListener('input', updateCharCount);
+  updateTextBtn.addEventListener('click', triggerRender);
   
   fontSizeInput.addEventListener('input', (e) => {
     fontSizeVal.textContent = `${e.target.value}px`;
+    triggerRender();
   });
   lineHeightInput.addEventListener('input', (e) => {
     lineHeightVal.textContent = `${e.target.value}px`;
+    triggerRender();
   });
   marginTopInput.addEventListener('input', (e) => {
     marginTopVal.textContent = `${e.target.value}px`;
+    triggerRender();
   });
   marginLeftInput.addEventListener('input', (e) => {
     marginLeftVal.textContent = `${e.target.value}px`;
+    triggerRender();
   });
 
-  // Font upload handler
+  // Font upload and select handlers
   fontSelect.addEventListener('change', (e) => {
     if (e.target.value === 'custom') {
       fontUpload.click();
     } else {
       fontStatus.textContent = '';
+      triggerRender();
     }
   });
 
@@ -102,11 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const customOpt = fontSelect.querySelector('option[value="custom"]');
       customOpt.textContent = `Свой шрифт: ${file.name.substring(0, 15)}...`;
       fontSelect.value = 'custom';
+      triggerRender();
     } catch (err) {
       console.error(err);
       fontStatus.className = 'status-msg error';
       fontStatus.textContent = 'Ошибка загрузки шрифта. Попробуйте TTF/OTF.';
       fontSelect.value = 'lorenco';
+      triggerRender();
     }
   });
 
@@ -117,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       customColorSwatch.classList.remove('active');
       swatch.classList.add('active');
       window.activeColor = swatch.getAttribute('data-color');
+      triggerRender();
     });
   });
 
@@ -124,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colorSwatches.forEach(s => s.classList.remove('active'));
     customColorSwatch.classList.add('active');
     window.activeColor = e.target.value;
+    triggerRender();
   });
 
   // Download JPG Action
@@ -157,6 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.print();
   });
+
+  // Paper and Jitter listeners for real-time rendering
+  paperSelect.addEventListener('change', triggerRender);
+  jitterIncline.addEventListener('change', triggerRender);
+  jitterSize.addEventListener('change', triggerRender);
+  jitterMargin.addEventListener('change', triggerRender);
 
   // Helper: Update char count
   function updateCharCount() {

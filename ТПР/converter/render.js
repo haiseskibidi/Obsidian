@@ -22,17 +22,17 @@ async function generateNotebook() {
   const jitterIncline = document.getElementById('jitter-incline');
   const jitterSize = document.getElementById('jitter-size');
   const jitterMargin = document.getElementById('jitter-margin');
-  const convertBtn = document.getElementById('convert-btn');
   const pagesGallery = document.getElementById('pages-gallery');
 
   const rawText = textInput.value;
   if (!rawText.trim()) {
-    alert('Введите текст для генерации!');
+    pagesGallery.innerHTML = `
+      <div class="empty-state">
+        <p>Введите текст слева для генерации конспекта.</p>
+      </div>
+    `;
     return;
   }
-
-  convertBtn.textContent = 'Генерация...';
-  convertBtn.disabled = true;
 
   try {
     // 1. Load Background Image
@@ -182,8 +182,7 @@ async function generateNotebook() {
   } catch (err) {
     console.error(err);
     alert('Ошибка при генерации конспекта. Проверьте файлы фонов.');
-  } finally {
-    convertBtn.textContent = 'Сгенерировать конспект';
-    convertBtn.disabled = false;
   }
 }
+
+window.generateNotebook = generateNotebook;

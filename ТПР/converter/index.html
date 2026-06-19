@@ -31,7 +31,10 @@
           <h2 class="card-title">Ввод текста</h2>
           <div class="textarea-wrapper">
             <textarea id="text-input" placeholder="Введите или вставьте сюда текст вашего конспекта..."></textarea>
-            <div class="char-count">Символов: <span id="char-total">0</span></div>
+            <div class="textarea-footer">
+              <button id="update-text-btn" class="primary-btn text-update-btn">Обновить текст</button>
+              <div class="char-count">Символов: <span id="char-total">0</span></div>
+            </div>
           </div>
         </div>
 
@@ -146,9 +149,7 @@
           </div>
         </div>
 
-        <div class="panel-card action-card">
-          <button id="convert-btn" class="primary-btn">Сгенерировать конспект</button>
-        </div>
+        <!-- Real-time rendering enabled, no manual button needed -->
       </section>
 
       <!-- Right Panel: Live Preview & Export -->
