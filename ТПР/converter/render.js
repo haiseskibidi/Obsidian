@@ -60,10 +60,7 @@ async function generateNotebook(onlyFirstPage = false) {
   const $ = id => document.getElementById(id);
   const rawText = $('text-input').value;
   const pagesGallery = $('pages-gallery');
-  if (!rawText.trim()) {
-    pagesGallery.innerHTML = `<div class="empty-state"><p>Введите текст слева для генерации конспекта.</p></div>`;
-    return;
-  }
+  if (!rawText.trim()) { pagesGallery.innerHTML = `<div class="empty-state"><p>Введите текст слева для генерации конспекта.</p></div>`; return; }
 
   const fragment = document.createDocumentFragment(), loader = $('render-loader');
   let canvas = null, ctx = null;
@@ -156,16 +153,11 @@ async function generateNotebook(onlyFirstPage = false) {
       
       ctx.fillStyle = window.activeColor || '#4260bb';
       ctx.textBaseline = 'alphabetic';
-      ctx.filter = 'blur(0.2px) contrast(1.05)';
-      ctx.globalAlpha = 0.94;
-
+      ctx.filter = 'blur(0.2px) contrast(1.05)'; ctx.globalAlpha = 0.94;
       pageWrapper.appendChild(canvas);
       fragment.appendChild(pageWrapper);
-
-      currentX = marginLeft;
-      currentY = marginTop + fontSize;
+      currentX = marginLeft; currentY = marginTop + fontSize;
     }
-
     addNewPage();
     paragraphs.forEach((paragraph, pIdx) => {
       if (paragraph.trim() === '') {
@@ -179,11 +171,11 @@ async function generateNotebook(onlyFirstPage = false) {
       
       // Apply slight margin jitter for the beginning of paragraph
       currentX = marginLeft + (jitterMargin.checked ? Math.random() * 15 - 5 : 0);
-      // плавающая базовая линия — синусоида с уникальной фазой/амплитудой на каждую строку
-      let lineWavePhase = Math.random() * Math.PI * 2;
-      let lineWaveAmp = 1.5 + Math.random() * 3;
-      let lineWaveFreq = 0.005 + Math.random() * 0.008;
-
+      // базовая линия: 3 гармоники + линейный дрифт + прыжок между словами
+      let wP1 = Math.random()*6.28, wP2 = Math.random()*6.28, wP3 = Math.random()*6.28;
+      let wA1 = 1+Math.random()*1.5, wA2 = 0.5+Math.random(), wA3 = 0.3+Math.random()*0.5;
+      let wF1 = 0.004+Math.random()*0.004, wF2 = 0.01+Math.random()*0.01, wF3 = 0.025+Math.random()*0.015;
+      let lineDrift = (Math.random()-0.5)*0.008, wordJump = 0;
       words.forEach((word, wIdx) => {
         // Measure word width with current font size
         ctx.font = `${fontSize}px "${fontName}"`;
@@ -195,9 +187,10 @@ async function generateNotebook(onlyFirstPage = false) {
           currentY += lineHeight;
           // Apply slight margin jitter for wrapped lines
           currentX = marginLeft + (jitterMargin.checked ? Math.random() * 10 - 3 : 0);
-          lineWavePhase = Math.random() * Math.PI * 2;
-          lineWaveAmp = 1.5 + Math.random() * 3;
-          lineWaveFreq = 0.005 + Math.random() * 0.008;
+          wP1 = Math.random()*6.28; wP2 = Math.random()*6.28; wP3 = Math.random()*6.28;
+          wA1 = 1+Math.random()*1.5; wA2 = 0.5+Math.random(); wA3 = 0.3+Math.random()*0.5;
+          wF1 = 0.004+Math.random()*0.004; wF2 = 0.01+Math.random()*0.01; wF3 = 0.025+Math.random()*0.015;
+          lineDrift = (Math.random()-0.5)*0.008; wordJump = 0;
 
           if (currentY > bgImage.height - paddingBottom) addNewPage();
         }
@@ -215,7 +208,10 @@ async function generateNotebook(onlyFirstPage = false) {
           const charWidth = ctx.measureText(char).width;
 
           // Apply translations for rotation around the character baseline
-          const baselineShift = (jitterBaseline && jitterBaseline.checked) ? Math.sin(currentX * lineWaveFreq + lineWavePhase) * lineWaveAmp : 0;
+          const bx = currentX - marginLeft;
+          const baselineShift = (jitterBaseline && jitterBaseline.checked)
+            ? Math.sin(bx*wF1+wP1)*wA1 + Math.sin(bx*wF2+wP2)*wA2 + Math.sin(bx*wF3+wP3)*wA3 + bx*lineDrift + wordJump
+            : 0;
           ctx.translate(currentX, currentY + baselineShift);
           ctx.rotate(angle);
           
@@ -228,6 +224,7 @@ async function generateNotebook(onlyFirstPage = false) {
         // add space between words
         ctx.font = `${fontSize}px "${fontName}"`;
         currentX += ctx.measureText(' ').width;
+        if (jitterBaseline && jitterBaseline.checked) wordJump += (Math.random()-0.5) * 1.8;
       });
       currentY += lineHeight;
       if (currentY > bgImage.height - paddingBottom) addNewPage();

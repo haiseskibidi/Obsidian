@@ -57,7 +57,8 @@
     "//Zenith игра/Zenith игра/Zenith обучалка",
     "//ТПР",
     "//ТПР/ТПР/Фотки",
-    "//converter"
+    "//converter",
+    "//ТПР/ТПР/Фотки конспекта"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -68,7 +69,8 @@
     "scripts",
     "Tags",
     "ТПР/Весь конспект ТПР.txt",
-    "ТПР/ТПР конспект ПДФ.pdf"
+    "ТПР/ТПР конспект ПДФ.pdf",
+    "ТПР/Фотки конспекта/20фоток_без_тени.zip"
   ],
   "hiddenExtensions": [
     ".mdb",
