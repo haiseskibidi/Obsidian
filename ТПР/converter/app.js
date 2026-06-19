@@ -204,16 +204,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canvases.length === 0) return;
 
     printContainer.innerHTML = '';
+    const promises = [];
     
-    // Convert canvases to images and append to hidden print container
+    // Convert canvases to images, wait for load to prevent blank prints
     canvases.forEach(canvas => {
       const img = document.createElement('img');
-      img.src = canvas.toDataURL('image/jpeg', 0.95);
       img.className = 'print-page-img';
+      promises.push(new Promise(resolve => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      }));
+      img.src = canvas.toDataURL('image/jpeg', 0.95);
       printContainer.appendChild(img);
     });
 
-    window.print();
+    Promise.all(promises).then(() => {
+      setTimeout(() => {
+        window.print();
+      }, 100);
+    });
   });
 
   // Paper and Jitter listeners for real-time rendering

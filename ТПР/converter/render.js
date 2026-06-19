@@ -34,12 +34,12 @@ async function generateNotebook(onlyFirstPage = false) {
     return;
   }
 
+  const fragment = document.createDocumentFragment();
+
   try {
     // 1. Load Background Image
     const selectedBg = paperSelect.value;
     const bgImage = await loadBackgroundImage(selectedBg);
-
-    const fragment = document.createDocumentFragment();
 
     // Read UI values
     const fontSize = parseInt(fontSizeInput.value);
