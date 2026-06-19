@@ -5,39 +5,19 @@ window.fontMap = { 'lorenco': 'Lorenco', 'abram': 'Abram', 'bad-script': 'Bad Sc
 
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
-  const textInput = document.getElementById('text-input');
-  const charTotal = document.getElementById('char-total');
-  const fontSelect = document.getElementById('font-select');
-  const fontUpload = document.getElementById('font-upload');
-  const fontStatus = document.getElementById('font-status');
-  
-  const fontSizeInput = document.getElementById('font-size');
-  const fontSizeVal = document.getElementById('font-size-val');
-  const lineHeightInput = document.getElementById('line-height');
-  const lineHeightVal = document.getElementById('line-height-val');
-  const marginTopInput = document.getElementById('margin-top');
-  const marginTopVal = document.getElementById('margin-top-val');
-  const marginLeftInput = document.getElementById('margin-left');
-  const marginLeftVal = document.getElementById('margin-left-val');
-  const fontDiversityInput = document.getElementById('font-diversity');
-  const fontDiversityVal = document.getElementById('font-diversity-val');
-  
-  const colorSwatches = document.querySelectorAll('.color-swatch:not(.custom-color)');
-  const customColorSwatch = document.querySelector('.color-swatch.custom-color');
-  const inkColorPicker = document.getElementById('ink-color-picker');
-  
-  const downloadJpgBtn = document.getElementById('download-jpg-btn');
-  const downloadPdfBtn = document.getElementById('download-pdf-btn');
-  const pagesGallery = document.getElementById('pages-gallery');
-  const printContainer = document.getElementById('print-container');
-  const updateTextBtn = document.getElementById('update-text-btn');
+  const textInput = document.getElementById('text-input'), charTotal = document.getElementById('char-total');
+  const fontSelect = document.getElementById('font-select'), fontUpload = document.getElementById('font-upload'), fontStatus = document.getElementById('font-status');
+  const fontSizeInput = document.getElementById('font-size'), fontSizeVal = document.getElementById('font-size-val');
+  const lineHeightInput = document.getElementById('line-height'), lineHeightVal = document.getElementById('line-height-val');
+  const marginTopInput = document.getElementById('margin-top'), marginTopVal = document.getElementById('margin-top-val');
+  const marginLeftInput = document.getElementById('margin-left'), marginLeftVal = document.getElementById('margin-left-val');
+  const fontDiversityInput = document.getElementById('font-diversity'), fontDiversityVal = document.getElementById('font-diversity-val');
+  const colorSwatches = document.querySelectorAll('.color-swatch:not(.custom-color)'), customColorSwatch = document.querySelector('.color-swatch.custom-color'), inkColorPicker = document.getElementById('ink-color-picker');
+  const downloadJpgBtn = document.getElementById('download-jpg-btn'), downloadPdfBtn = document.getElementById('download-pdf-btn'), pagesGallery = document.getElementById('pages-gallery'), printContainer = document.getElementById('print-container'), updateTextBtn = document.getElementById('update-text-btn');
 
   // Zoom Controls elements and state
   let currentScale = 0.65;
-  const zoomOutBtn = document.getElementById('zoom-out-btn');
-  const zoomInBtn = document.getElementById('zoom-in-btn');
-  const zoomFitBtn = document.getElementById('zoom-fit-btn');
-  const zoomLevel = document.getElementById('zoom-level');
+  const zoomOutBtn = document.getElementById('zoom-out-btn'), zoomInBtn = document.getElementById('zoom-in-btn'), zoomFitBtn = document.getElementById('zoom-fit-btn'), zoomLevel = document.getElementById('zoom-level');
   
   // Settings elements for real-time update
   const paperSelect = document.getElementById('paper-select');
@@ -56,13 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Debounced real-time render helper
   let renderTimeout;
-  function triggerRender() {
+  function triggerRender(onlyFirstPage = false) {
     clearTimeout(renderTimeout);
     renderTimeout = setTimeout(() => {
       if (typeof window.generateNotebook === 'function') {
-        window.generateNotebook();
+        window.generateNotebook(onlyFirstPage);
       }
-    }, 150);
+    }, onlyFirstPage ? 30 : 150);
   }
 
   // Default text relating to user's current project (ТПР)
@@ -78,11 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
   textInput.addEventListener('input', updateCharCount);
   updateTextBtn.addEventListener('click', triggerRender);
   
-  fontSizeInput.addEventListener('input', (e) => { fontSizeVal.textContent = `${e.target.value}px`; triggerRender(); });
-  lineHeightInput.addEventListener('input', (e) => { lineHeightVal.textContent = `${e.target.value}px`; triggerRender(); });
-  marginTopInput.addEventListener('input', (e) => { marginTopVal.textContent = `${e.target.value}px`; triggerRender(); });
-  marginLeftInput.addEventListener('input', (e) => { marginLeftVal.textContent = `${e.target.value}px`; triggerRender(); });
-  fontDiversityInput.addEventListener('input', (e) => { fontDiversityVal.textContent = `${Math.round(e.target.value * 100)}%`; triggerRender(); });
+  fontSizeInput.addEventListener('input', (e) => { fontSizeVal.textContent = `${e.target.value}px`; triggerRender(true); });
+  fontSizeInput.addEventListener('change', () => triggerRender(false));
+
+  lineHeightInput.addEventListener('input', (e) => { lineHeightVal.textContent = `${e.target.value}px`; triggerRender(true); });
+  lineHeightInput.addEventListener('change', () => triggerRender(false));
+
+  marginTopInput.addEventListener('input', (e) => { marginTopVal.textContent = `${e.target.value}px`; triggerRender(true); });
+  marginTopInput.addEventListener('change', () => triggerRender(false));
+
+  marginLeftInput.addEventListener('input', (e) => { marginLeftVal.textContent = `${e.target.value}px`; triggerRender(true); });
+  marginLeftInput.addEventListener('change', () => triggerRender(false));
+
+  fontDiversityInput.addEventListener('input', (e) => { fontDiversityVal.textContent = `${Math.round(e.target.value * 100)}%`; triggerRender(true); });
+  fontDiversityInput.addEventListener('change', () => triggerRender(false));
 
   // Font upload and select handlers
   fontSelect.addEventListener('change', (e) => {

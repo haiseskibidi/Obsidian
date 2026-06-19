@@ -11,7 +11,7 @@ function loadBackgroundImage(src) {
 }
 
 // Core Render Text Pipeline
-async function generateNotebook() {
+async function generateNotebook(onlyFirstPage = false) {
   const textInput = document.getElementById('text-input');
   const fontSelect = document.getElementById('font-select');
   const fontSizeInput = document.getElementById('font-size');
@@ -39,7 +39,7 @@ async function generateNotebook() {
     const selectedBg = paperSelect.value;
     const bgImage = await loadBackgroundImage(selectedBg);
 
-    pagesGallery.innerHTML = ''; // Clear preview area
+    const fragment = document.createDocumentFragment();
 
     // Read UI values
     const fontSize = parseInt(fontSizeInput.value);
@@ -70,6 +70,10 @@ async function generateNotebook() {
 
     // Helper: Create a new page
     function addNewPage() {
+      if (onlyFirstPage && fragment.children.length >= 1) {
+        throw new Error('OnlyFirstPageLimit');
+      }
+
       const pageWrapper = document.createElement('div');
       pageWrapper.className = 'page-wrapper';
       
@@ -88,9 +92,11 @@ async function generateNotebook() {
       // Set styles
       ctx.fillStyle = window.activeColor || '#1c3b88';
       ctx.textBaseline = 'alphabetic';
+      ctx.filter = 'blur(0.35px) contrast(1.1)'; // Simulates natural ink bleeding into paper fibers
+      ctx.globalAlpha = 0.94; // Allows paper grain and lines to subtly show through the ink
 
       pageWrapper.appendChild(canvas);
-      pagesGallery.appendChild(pageWrapper);
+      fragment.appendChild(pageWrapper);
 
       // Reset coordinates for new page
       currentX = marginLeft;
@@ -192,9 +198,17 @@ async function generateNotebook() {
         addNewPage();
       }
     });
+
+    pagesGallery.innerHTML = '';
+    pagesGallery.appendChild(fragment);
   } catch (err) {
-    console.error(err);
-    alert('Ошибка при генерации конспекта. Проверьте файлы фонов.');
+    if (err.message === 'OnlyFirstPageLimit') {
+      pagesGallery.innerHTML = '';
+      pagesGallery.appendChild(fragment);
+    } else {
+      console.error(err);
+      alert('Ошибка при генерации конспекта. Проверьте файлы фонов.');
+    }
   }
 }
 
