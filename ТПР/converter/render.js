@@ -46,10 +46,17 @@ async function generateNotebook() {
     const lineHeight = parseInt(lineHeightInput.value);
     const marginTop = parseInt(marginTopInput.value);
     const marginLeft = parseInt(marginLeftInput.value);
+    const fontDiversity = parseFloat(document.getElementById('font-diversity').value);
     
     // Custom font fallback or mapped local font family name
     const fontKey = fontSelect.value;
     const fontName = fontKey === 'custom' ? window.customFontFamily : (window.fontMap[fontKey] || 'Lorenco');
+
+    const handwritingFonts = [
+      'Lorenco', 'Abram', 'Bad Script', 'Benvolio', 'Eskal',
+      'Gregory', 'Lazy Crazy', 'Merkucio', 'Pag', 'Paris',
+      'Rozovii', 'Salavat', 'Shlapak', 'Stefano', 'Tibalt'
+    ];
 
     let canvas = null;
     let ctx = null;
@@ -106,7 +113,7 @@ async function generateNotebook() {
       
       // Apply slight margin jitter for the beginning of paragraph
       if (jitterMargin.checked) {
-        currentX = marginLeft + (Math.random() * 8 - 4);
+        currentX = marginLeft + (Math.random() * 15 - 5);
       } else {
         currentX = marginLeft;
       }
@@ -122,7 +129,7 @@ async function generateNotebook() {
           
           // Apply slight margin jitter for wrapped lines
           if (jitterMargin.checked) {
-            currentX = marginLeft + (Math.random() * 6 - 3);
+            currentX = marginLeft + (Math.random() * 10 - 3);
           } else {
             currentX = marginLeft;
           }
@@ -141,18 +148,22 @@ async function generateNotebook() {
           // 1. Incline (angle) Jitter
           let angle = 0;
           if (jitterIncline.checked) {
-            // Slight tilt (-1.8 to +1.8 degrees)
-            angle = (Math.random() - 0.5) * 0.05;
+            angle = (Math.random() < 0.5 ? -1 : 1) * Math.random() * 0.12; // tilt up to ~7 degrees
           }
 
           // 2. Size Jitter
           let charSize = fontSize;
           if (jitterSize.checked) {
-            // Variations in size of +/- 1.5 pixels
-            charSize = fontSize + (Math.random() * 3 - 1.5);
+            charSize = fontSize + (Math.random() * 7 - 2); // size variation from -2px to +5px
+          }
+
+          // 3. Letter Diversity (mix different handwriting styles)
+          let charFont = fontName;
+          if (fontDiversity > 0 && Math.random() < fontDiversity) {
+            charFont = handwritingFonts[Math.floor(Math.random() * handwritingFonts.length)];
           }
           
-          ctx.font = `${charSize}px "${fontName}"`;
+          ctx.font = `${charSize}px "${charFont}"`;
           const charWidth = ctx.measureText(char).width;
 
           // Apply translations for rotation around the character baseline

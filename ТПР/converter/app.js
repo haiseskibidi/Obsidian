@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const marginTopVal = document.getElementById('margin-top-val');
   const marginLeftInput = document.getElementById('margin-left');
   const marginLeftVal = document.getElementById('margin-left-val');
+  const fontDiversityInput = document.getElementById('font-diversity');
+  const fontDiversityVal = document.getElementById('font-diversity-val');
   
   const colorSwatches = document.querySelectorAll('.color-swatch:not(.custom-color)');
   const customColorSwatch = document.querySelector('.color-swatch.custom-color');
@@ -90,6 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   marginLeftInput.addEventListener('input', (e) => {
     marginLeftVal.textContent = `${e.target.value}px`;
+    triggerRender();
+  });
+  fontDiversityInput.addEventListener('input', (e) => {
+    fontDiversityVal.textContent = `${Math.round(e.target.value * 100)}%`;
     triggerRender();
   });
 
