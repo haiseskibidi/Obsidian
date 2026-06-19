@@ -6,21 +6,24 @@ window.fontMap = { 'lorenco': 'Lorenco', 'abram': 'Abram', 'bad-script': 'Bad Sc
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
   const textInput = document.getElementById('text-input'), charTotal = document.getElementById('char-total');
-  const marginRightInput = document.getElementById('margin-right'), marginRightVal = document.getElementById('margin-right-val');
-  const marginBottomInput = document.getElementById('margin-bottom'), marginBottomVal = document.getElementById('margin-bottom-val');
-  const contentWidthInput = document.getElementById('content-width'), contentWidthVal = document.getElementById('content-width-val');
   const fontSelect = document.getElementById('font-select'), fontUpload = document.getElementById('font-upload'), fontStatus = document.getElementById('font-status');
-  const fontSizeInput = document.getElementById('font-size'), fontSizeVal = document.getElementById('font-size-val');
-  const lineHeightInput = document.getElementById('line-height'), lineHeightVal = document.getElementById('line-height-val');
-  const marginTopInput = document.getElementById('margin-top'), marginTopVal = document.getElementById('margin-top-val');
-  const marginLeftInput = document.getElementById('margin-left'), marginLeftVal = document.getElementById('margin-left-val');
-  const fontDiversityInput = document.getElementById('font-diversity'), fontDiversityVal = document.getElementById('font-diversity-val');
   const colorSwatches = document.querySelectorAll('.color-swatch:not(.custom-color)'), customColorSwatch = document.querySelector('.color-swatch.custom-color'), inkColorPicker = document.getElementById('ink-color-picker');
   const downloadJpgBtn = document.getElementById('download-jpg-btn'), downloadPdfBtn = document.getElementById('download-pdf-btn'), pagesGallery = document.getElementById('pages-gallery'), printContainer = document.getElementById('print-container'), updateTextBtn = document.getElementById('update-text-btn');
 
   // Zoom Controls elements and state
   let currentScale = 0.65;
   const zoomOutBtn = document.getElementById('zoom-out-btn'), zoomInBtn = document.getElementById('zoom-in-btn'), zoomFitBtn = document.getElementById('zoom-fit-btn'), zoomLevel = document.getElementById('zoom-level');
+
+  // Helper to bind range inputs compactly
+  function bindRange(id, isPercent = false) {
+    const input = document.getElementById(id), val = document.getElementById(id + '-val');
+    if (!input || !val) return;
+    input.addEventListener('input', (e) => {
+      val.textContent = isPercent ? `${Math.round(e.target.value * 100)}%` : `${e.target.value}px`;
+      triggerRender(true);
+    });
+    input.addEventListener('change', () => triggerRender(false));
+  }
   
   // Settings elements for real-time update
   const paperSelect = document.getElementById('paper-select');
@@ -61,27 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event Listeners for UI Value Labels and Real-time Rendering
   textInput.addEventListener('input', updateCharCount);
   updateTextBtn.addEventListener('click', triggerRender);
-  
-  fontSizeInput.addEventListener('input', (e) => { fontSizeVal.textContent = `${e.target.value}px`; triggerRender(true); });
-  fontSizeInput.addEventListener('change', () => triggerRender(false));
 
-  lineHeightInput.addEventListener('input', (e) => { lineHeightVal.textContent = `${e.target.value}px`; triggerRender(true); });
-  lineHeightInput.addEventListener('change', () => triggerRender(false));
-
-  marginTopInput.addEventListener('input', (e) => { marginTopVal.textContent = `${e.target.value}px`; triggerRender(true); });
-  marginTopInput.addEventListener('change', () => triggerRender(false));
-
-  marginLeftInput.addEventListener('input', (e) => { marginLeftVal.textContent = `${e.target.value}px`; triggerRender(true); });
-  marginLeftInput.addEventListener('change', () => triggerRender(false));
-
-  fontDiversityInput.addEventListener('input', (e) => { fontDiversityVal.textContent = `${Math.round(e.target.value * 100)}%`; triggerRender(true); });
-  fontDiversityInput.addEventListener('change', () => triggerRender(false));
-  marginRightInput.addEventListener('input', (e) => { marginRightVal.textContent = `${e.target.value}px`; triggerRender(true); });
-  marginRightInput.addEventListener('change', () => triggerRender(false));
-  marginBottomInput.addEventListener('input', (e) => { marginBottomVal.textContent = `${e.target.value}px`; triggerRender(true); });
-  marginBottomInput.addEventListener('change', () => triggerRender(false));
-  contentWidthInput.addEventListener('input', (e) => { contentWidthVal.textContent = `${e.target.value}px`; triggerRender(true); });
-  contentWidthInput.addEventListener('change', () => triggerRender(false));
+  bindRange('font-size');
+  bindRange('line-height');
+  bindRange('margin-top');
+  bindRange('margin-left');
+  bindRange('margin-bottom');
+  bindRange('content-width');
+  bindRange('font-diversity', true);
 
   // Font upload and select handlers
   fontSelect.addEventListener('change', (e) => {
@@ -240,9 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
   jitterIncline.addEventListener('change', triggerRender);
   jitterSize.addEventListener('change', triggerRender);
   jitterMargin.addEventListener('change', triggerRender);
-  marginRightInput.addEventListener('change', triggerRender);
-  marginBottomInput.addEventListener('change', triggerRender);
-  contentWidthInput.addEventListener('change', triggerRender);
 
   // Helper: Update char count
   function updateCharCount() {

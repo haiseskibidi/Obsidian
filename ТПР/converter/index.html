@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Конвертер печатного текста в рукописный онлайн бесплатно">
   <title>Писец — Конвертер текста в рукописный вид</title>
-  <!-- Google Fonts for UI and Handwriting -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -16,7 +15,6 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- Header -->
     <header class="app-header">
       <div class="logo-area">
         <h1 class="app-title">ПИСЕЦ<span class="highlight">.</span></h1>
@@ -24,9 +22,7 @@
       <p class="app-subtitle">Локальный конвертер печатных материалов в конспекты от руки</p>
     </header>
 
-    <!-- Main Workspace -->
     <main class="app-workspace">
-            <!-- Left Panel: Controls -->
       <section class="controls-panel">
         <div class="panel-card" id="card-input">
           <div class="card-header">
@@ -160,27 +156,18 @@
               </select>
             </div>
 
-            <div class="control-row">
-              <div class="control-group half">
-                <label for="margin-right">Отступ справа</label>
-                <div class="range-wrapper">
-                  <input type="range" id="margin-right" min="10" max="150" value="45">
-                  <span class="range-val" id="margin-right-val">45px</span>
-                </div>
-              </div>
-              <div class="control-group half">
-                <label for="margin-bottom">Отступ снизу</label>
-                <div class="range-wrapper">
-                  <input type="range" id="margin-bottom" min="10" max="150" value="60">
-                  <span class="range-val" id="margin-bottom-val">60px</span>
-                </div>
+            <div class="control-group">
+              <label for="margin-bottom">Отступ снизу</label>
+              <div class="range-wrapper">
+                <input type="range" id="margin-bottom" min="10" max="150" value="60">
+                <span class="range-val" id="margin-bottom-val">60px</span>
               </div>
             </div>
 
             <div class="control-group">
               <label for="content-width">Ширина контента</label>
               <div class="range-wrapper">
-                <input type="range" id="content-width" min="300" max="700" value="616">
+                <input type="range" id="content-width" min="300" max="900" value="616">
                 <span class="range-val" id="content-width-val">616px</span>
               </div>
             </div>
@@ -209,7 +196,6 @@
         </div>
       </section>
 
-      <!-- Right Panel: Live Preview & Export -->
       <section class="preview-panel">
         <div class="preview-header">
           <div class="preview-title-area">
@@ -229,7 +215,6 @@
 
         <div class="pages-gallery-wrapper">
           <div id="pages-gallery" class="pages-gallery">
-            <!-- Canvas pages are dynamically added here -->
             <div class="empty-state">
               <p>Введите текст слева и нажмите генерацию.</p>
             </div>
@@ -243,7 +228,6 @@
     </main>
   </div>
 
-  <!-- Print Container (used only for PDF export) -->
   <div id="print-container"></div>
 
   <script src="jszip.min.js"></script>

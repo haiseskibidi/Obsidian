@@ -69,7 +69,6 @@ async function generateNotebook(onlyFirstPage = false) {
     let ctx = null;
     let currentX = marginLeft;
     let currentY = marginTop + fontSize;
-    const paddingRight = parseInt(document.getElementById('margin-right').value);
     const paddingBottom = parseInt(document.getElementById('margin-bottom').value);
     const contentWidth = parseInt(document.getElementById('content-width').value);
 
@@ -138,8 +137,8 @@ async function generateNotebook(onlyFirstPage = false) {
         ctx.font = `${fontSize}px "${fontName}"`;
         const wordWidth = ctx.measureText(word + ' ').width;
 
-        // Wrap lines if we exceed the right margin or max content width
-        const rightBoundary = Math.min(bgImage.width - paddingRight, marginLeft + contentWidth);
+        // Wrap lines if we exceed the max content width limit
+        const rightBoundary = marginLeft + contentWidth;
         if (currentX + wordWidth > rightBoundary) {
           currentY += lineHeight;
           
