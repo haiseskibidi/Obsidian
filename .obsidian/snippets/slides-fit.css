@@ -1,5 +1,7 @@
-.reveal img, .reveal .slides img, .reveal .slides section img {
-    max-height: 75vh !important;
+.reveal img,
+.reveal .slides img,
+.reveal .slides section img {
+    max-height: 69vh !important;
     max-width: 85vw !important;
     width: auto !important;
     height: auto !important;
