@@ -78,21 +78,20 @@ async function generateNotebook(onlyFirstPage = false) {
       pageWrapper.className = 'page-wrapper';
       
       canvas = document.createElement('canvas');
-      canvas.width = bgImage.width * 2; // Render at 2x resolution (Retina/High-DPI sharp rendering)
-      canvas.height = bgImage.height * 2;
+      canvas.width = bgImage.width; // Render at native 1x resolution for authentic scanned document appearance
+      canvas.height = bgImage.height;
       canvas.className = 'handwritten-page';
       canvas.style.setProperty('--page-width', bgImage.width + 'px');
       
       ctx = canvas.getContext('2d');
-      ctx.scale(2, 2); // Scale coordinate system for 2x resolution drawing
       
       // Draw the loaded background template scaled to context bounds
       ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
       
       // Set styles
-      ctx.fillStyle = window.activeColor || '#1c3b88';
+      ctx.fillStyle = window.activeColor || '#4260bb';
       ctx.textBaseline = 'alphabetic';
-      ctx.filter = 'blur(0.35px) contrast(1.1)'; // Simulates natural ink bleeding into paper fibers
+      ctx.filter = 'blur(0.2px) contrast(1.05)'; // Simulates natural ink bleeding at 1x resolution
       ctx.globalAlpha = 0.94; // Allows paper grain and lines to subtly show through the ink
 
       pageWrapper.appendChild(canvas);

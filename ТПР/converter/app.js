@@ -1,5 +1,5 @@
 // Global state variables accessible by render.js
-window.activeColor = '#1c3b88';
+window.activeColor = '#4260bb';
 window.customFontFamily = null;
 window.fontMap = { 'lorenco': 'Lorenco', 'abram': 'Abram', 'bad-script': 'Bad Script', 'benvolio': 'Benvolio', 'eskal': 'Eskal', 'gregory': 'Gregory', 'lazy-crazy': 'Lazy Crazy', 'merkucio': 'Merkucio', 'pag': 'Pag', 'paris': 'Paris', 'rozovii': 'Rozovii', 'salavat': 'Salavat', 'shlapak': 'Shlapak', 'stefano': 'Stefano', 'tibalt': 'Tibalt' };
 
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.querySelector('.pages-gallery-wrapper');
     const canvas = pagesGallery.querySelector('canvas');
     if (wrapper) {
-      const baseHeight = canvas ? (canvas.height / 2) : 928;
+      const baseHeight = canvas ? canvas.height : 928;
       const availableHeight = wrapper.clientHeight - 60; // 30px padding top + bottom
       const targetScale = Math.max(0.3, Math.min(1.5, availableHeight / baseHeight));
       updateZoom(targetScale);
