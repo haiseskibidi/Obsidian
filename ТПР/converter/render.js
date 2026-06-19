@@ -96,6 +96,7 @@ async function generateNotebook(onlyFirstPage = false) {
     const paragraphs = rawText.split('\n');
 
     // Helper: Create a new page
+    let pageCount = 0;
     function addNewPage() {
       if (onlyFirstPage && fragment.children.length >= 1) {
         throw new Error('OnlyFirstPageLimit');
@@ -116,7 +117,18 @@ async function generateNotebook(onlyFirstPage = false) {
       
       ctx = canvas.getContext('2d');
       
-      ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
+      // чётные страницы (левые) — зеркалим фон, как в настоящей тетради
+      const isLeftPage = pageCount % 2 === 1;
+      if (isLeftPage) {
+        ctx.save();
+        ctx.translate(bgImage.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
+        ctx.restore();
+      } else {
+        ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
+      }
+      pageCount++;
       if ((photoLighting && photoLighting.checked) || (photoCurves && photoCurves.checked)) {
         ctx.fillStyle = (photoLighting && photoLighting.checked) ? 'rgba(10, 15, 30, 0.05)' : 'rgba(10, 15, 30, 0.025)';
         ctx.fillRect(0, 0, bgImage.width, bgImage.height);
@@ -220,25 +232,17 @@ async function generateNotebook(onlyFirstPage = false) {
       if (currentY > bgImage.height - paddingBottom) addNewPage();
     });
 
-    if (canvas && ctx) {
-      finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
-    }
-
+    if (canvas && ctx) finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
     pagesGallery.innerHTML = '';
     pagesGallery.appendChild(fragment);
     if (loader) loader.style.display = 'none';
   } catch (err) {
     if (loader) loader.style.display = 'none';
     if (err.message === 'OnlyFirstPageLimit') {
-      if (canvas && ctx) {
-        finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
-      }
+      if (canvas && ctx) finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
       pagesGallery.innerHTML = '';
       pagesGallery.appendChild(fragment);
-    } else {
-      console.error(err);
-      alert('Ошибка при генерации конспекта. Проверьте файлы фонов.');
-    }
+    } else { console.error(err); alert('Ошибка при генерации конспекта. Проверьте файлы фонов.'); }
   }
 }
 
