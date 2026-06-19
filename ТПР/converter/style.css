@@ -1,102 +1,93 @@
-/* CSS Reset and Core Setup */
+/* Core Reset and Base Setup */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Outfit', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   scrollbar-width: thin;
-  scrollbar-color: #d4b16a #11141d;
+  scrollbar-color: #d4b16a #151a24;
 }
 
 body {
   background-color: #080a0f;
-  color: #f1f3f5;
+  color: #cdd9e5;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  padding: 30px 40px;
 }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d1017;
+  background: #080a0f;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4b16a;
-  border-radius: 3px;
+  background: #1e2638;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #bfa05b;
+  background: #d4b16a;
 }
 
-/* App Container and Header Styling */
+/* Top Level Containers */
 .app-container {
-  max-width: 1440px;
+  max-width: 1300px;
   width: 100%;
   margin: 0 auto;
-  padding: 20px 40px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  flex-grow: 1;
+  gap: 25px;
 }
 
 .app-header {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  border-bottom: 1px solid rgba(212, 177, 106, 0.15);
-  padding-bottom: 20px;
+  gap: 5px;
+  border-bottom: 1px solid #1a2233;
+  padding-bottom: 15px;
 }
 
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  font-size: 2.2rem;
 }
 
 .app-title {
-  font-size: 2.2rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: 0.5px;
   color: #ffffff;
 }
 
 .highlight {
   color: #d4b16a;
-  text-shadow: 0 0 15px rgba(212, 177, 106, 0.4);
 }
 
 .app-subtitle {
-  color: #a0aab8;
-  font-size: 0.95rem;
-  font-weight: 300;
-  letter-spacing: 0.5px;
+  color: #768390;
+  font-size: 0.85rem;
+  font-weight: 400;
 }
 
-/* Workspace Layout */
+/* Grid Layout */
 .app-workspace {
   display: grid;
-  grid-template-columns: 430px 1fr;
+  grid-template-columns: 440px 1fr;
   gap: 30px;
   align-items: start;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1080px) {
   .app-workspace {
     grid-template-columns: 1fr;
   }
 }
 
-/* Panels Common */
 .controls-panel {
   display: flex;
   flex-direction: column;
@@ -107,330 +98,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  height: calc(100vh - 180px);
+  height: calc(100vh - 160px);
   position: sticky;
-  top: 20px;
+  top: 30px;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1080px) {
   .preview-panel {
     height: auto;
     position: static;
   }
-}
-
-/* Glassmorphic Cards */
-.panel-card {
-  background: rgba(17, 20, 29, 0.65);
-  border: 1px solid rgba(212, 177, 106, 0.1);
-  border-radius: 16px;
-  padding: 24px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.card-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #d4b16a;
-  border-left: 3px solid #d4b16a;
-  padding-left: 10px;
-  letter-spacing: 0.5px;
-}
-
-/* Textarea styling */
-.textarea-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#text-input {
-  width: 100%;
-  height: 200px;
-  background: rgba(8, 10, 15, 0.8);
-  border: 1px solid rgba(212, 177, 106, 0.2);
-  border-radius: 10px;
-  padding: 14px;
-  color: #f1f3f5;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  resize: vertical;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-#text-input:focus {
-  border-color: #d4b16a;
-  box-shadow: 0 0 10px rgba(212, 177, 106, 0.15);
-}
-
-.char-count {
-  align-self: flex-end;
-  font-size: 0.8rem;
-  color: #8c98a9;
-}
-
-/* Control Widgets Settings */
-.control-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.control-group label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #a0aab8;
-  letter-spacing: 0.5px;
-}
-
-.control-row {
-  display: flex;
-  gap: 16px;
-}
-
-.half {
-  flex: 1;
-}
-
-select {
-  width: 100%;
-  background: rgba(8, 10, 15, 0.8);
-  border: 1px solid rgba(212, 177, 106, 0.2);
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: #f1f3f5;
-  font-size: 0.9rem;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-select:focus {
-  border-color: #d4b16a;
-}
-
-/* Range Input Stylings */
-.range-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-input[type="range"] {
-  flex: 1;
-  -webkit-appearance: none;
-  appearance: none;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(212, 177, 106, 0.15);
-  outline: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #d4b16a;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-  box-shadow: 0 0 8px rgba(212, 177, 106, 0.5);
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  background: #ffffff;
-}
-
-.range-val {
-  font-size: 0.8rem;
-  color: #d4b16a;
-  font-weight: 600;
-  min-width: 38px;
-  text-align: right;
-}
-
-/* Checkboxes Customization */
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.custom-checkbox {
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding-left: 28px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  color: #a0aab8;
-  user-select: none;
-}
-
-.custom-checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 18px;
-  width: 18px;
-  background-color: rgba(8, 10, 15, 0.8);
-  border: 1px solid rgba(212, 177, 106, 0.25);
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.custom-checkbox:hover input ~ .checkmark {
-  border-color: #d4b16a;
-}
-
-.custom-checkbox input:checked ~ .checkmark {
-  background-color: #d4b16a;
-  border-color: #d4b16a;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.custom-checkbox input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.custom-checkbox .checkmark:after {
-  left: 6px;
-  top: 2px;
-  width: 4px;
-  height: 9px;
-  border: solid #080a0f;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-/* Color Options swatches */
-.color-options {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.color-swatch {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-}
-
-.color-swatch:hover {
-  transform: scale(1.1);
-}
-
-.color-swatch.active {
-  border-color: #d4b16a;
-  box-shadow: 0 0 12px rgba(212, 177, 106, 0.5);
-}
-
-.custom-color {
-  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#ink-color-picker {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
-.status-msg {
-  font-size: 0.75rem;
-  margin-top: 4px;
-}
-.status-msg.success { color: #5cb85c; }
-.status-msg.error { color: #d9534f; }
-
-/* Buttons styling */
-button {
-  cursor: pointer;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  outline: none;
-}
-
-.primary-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #d4b16a 0%, #b3914c 100%);
-  color: #080a0f;
-  border: none;
-  padding: 16px 20px;
-  font-size: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(212, 177, 106, 0.3);
-}
-
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(212, 177, 106, 0.45);
-  background: linear-gradient(135deg, #e8c57b 0%, #c8a359 100%);
-}
-
-.primary-btn:active {
-  transform: translateY(0);
-}
-
-.secondary-btn {
-  background: rgba(17, 20, 29, 0.6);
-  border: 1px solid rgba(212, 177, 106, 0.25);
-  color: #f1f3f5;
-  padding: 10px 18px;
-  font-size: 0.85rem;
-  border-radius: 8px;
-}
-
-.secondary-btn:hover {
-  border-color: #d4b16a;
-  color: #d4b16a;
-  background: rgba(212, 177, 106, 0.05);
-}
-
-.gold-btn {
-  background: rgba(212, 177, 106, 0.15);
-  border-color: #d4b16a;
-  color: #d4b16a;
-}
-
-.gold-btn:hover {
-  background: #d4b16a;
-  color: #080a0f;
-}
-
-/* Action panel card */
-.action-card {
-  padding: 12px;
 }
 
 /* Preview Header */
@@ -438,28 +115,29 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
 }
 
 .section-title {
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .export-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* Pages Gallery styling */
+/* Pages Gallery */
 .pages-gallery-wrapper {
   flex-grow: 1;
   overflow-y: auto;
-  border: 1px solid rgba(212, 177, 106, 0.08);
-  border-radius: 16px;
-  background: rgba(13, 16, 23, 0.45);
-  padding: 30px;
+  border: 1px solid #1c2333;
+  border-radius: 10px;
+  background: #090c12;
+  padding: 24px;
   display: flex;
   justify-content: center;
 }
@@ -467,54 +145,41 @@ button {
 .pages-gallery {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  max-width: 800px;
+  gap: 30px;
+  max-width: 680px;
   width: 100%;
   align-items: center;
 }
 
-/* Empty state styling */
+/* Empty State */
 .empty-state {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  color: #728096;
+  color: #536471;
   text-align: center;
-  padding: 100px 20px;
+  padding: 120px 20px;
   width: 100%;
-}
-
-.empty-icon {
-  font-size: 3rem;
-  opacity: 0.6;
-}
-
-.empty-state p {
-  font-size: 1rem;
-  max-width: 320px;
-  line-height: 1.5;
-  font-weight: 300;
+  font-size: 0.85rem;
+  font-weight: 400;
 }
 
 /* Canvas page rendering in browser */
 .handwritten-page {
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
-  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
   max-width: 100%;
   height: auto;
   background-color: #ffffff;
   display: block;
 }
 
-/* Print and PDF Styling */
+/* Print and PDF Layout */
 #print-container {
   display: none;
 }
 
 @media print {
-  /* Hide all app contents except print container */
   body * {
     visibility: hidden;
     background: transparent !important;
