@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Конвертер печатного текста в рукописный онлайн бесплатно">
-  <title>Handwritten Text Converter — Создай свой конспект</title>
+  <title>Писец — Конвертер текста в рукописный вид</title>
   <!-- Google Fonts for UI and Handwriting -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Caveat:wght@400;700&family=Marck+Script&family=Neucha&family=Bad+Script&family=Kelly+Slab&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +16,9 @@
     <!-- Header -->
     <header class="app-header">
       <div class="logo-area">
-        <span class="logo-icon">✍️</span>
-        <h1 class="app-title">Scripto<span class="highlight">Gold</span></h1>
+        <h1 class="app-title">ПИСЕЦ<span class="highlight">.</span></h1>
       </div>
-      <p class="app-subtitle">Премиальный инструмент для перевода текста в рукописный вид</p>
+      <p class="app-subtitle">Локальный конвертер печатных материалов в конспекты от руки</p>
     </header>
 
     <!-- Main Workspace -->
@@ -27,7 +26,7 @@
       <!-- Left Panel: Controls -->
       <section class="controls-panel">
         <div class="panel-card">
-          <h2 class="card-title">📝 Ввод текста</h2>
+          <h2 class="card-title">Ввод текста</h2>
           <div class="textarea-wrapper">
             <textarea id="text-input" placeholder="Введите или вставьте сюда текст вашего конспекта..."></textarea>
             <div class="char-count">Символов: <span id="char-total">0</span></div>
@@ -35,17 +34,27 @@
         </div>
 
         <div class="panel-card">
-          <h2 class="card-title">🎨 Настройки почерка</h2>
+          <h2 class="card-title">Настройки почерка</h2>
           
           <div class="control-group">
-            <label for="font-select">Выбор шрифта</label>
+            <label for="font-select">Выбор почерка</label>
             <select id="font-select">
-              <option value="Caveat">Caveat (По умолчанию)</option>
-              <option value="Marck Script">Marck Script (Аккуратный)</option>
-              <option value="Neucha">Neucha (Крупный округлый)</option>
-              <option value="Bad Script">Bad Script (Небрежный)</option>
-              <option value="Pacifico">Pacifico (Каллиграфический)</option>
-              <option value="custom">-- Загрузить свой шрифт (.ttf / .otf) --</option>
+              <option value="lorenco" selected>Lorenco (Рекомендуемый)</option>
+              <option value="abram">Abram</option>
+              <option value="bad-script">Bad Script</option>
+              <option value="benvolio">Benvolio</option>
+              <option value="eskal">Eskal</option>
+              <option value="gregory">Gregory</option>
+              <option value="lazy-crazy">Lazy Crazy</option>
+              <option value="merkucio">Merkucio</option>
+              <option value="pag">Pag</option>
+              <option value="paris">Paris</option>
+              <option value="rozovii">Розовый чулок</option>
+              <option value="salavat">Салават</option>
+              <option value="shlapak">Шлапак</option>
+              <option value="stefano">Стефано</option>
+              <option value="tibalt">Тибальт</option>
+              <option value="custom">-- Загрузить свой шрифт --</option>
             </select>
             <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2" style="display: none;">
             <div id="font-status" class="status-msg"></div>
@@ -55,15 +64,15 @@
             <div class="control-group half">
               <label for="font-size">Размер букв</label>
               <div class="range-wrapper">
-                <input type="range" id="font-size" min="16" max="32" value="22">
-                <span class="range-val" id="font-size-val">22px</span>
+                <input type="range" id="font-size" min="16" max="32" value="21">
+                <span class="range-val" id="font-size-val">21px</span>
               </div>
             </div>
             <div class="control-group half">
               <label for="line-height">Межстрочный интервал</label>
               <div class="range-wrapper">
-                <input type="range" id="line-height" min="25" max="50" value="34">
-                <span class="range-val" id="line-height-val">34px</span>
+                <input type="range" id="line-height" min="25" max="50" value="33">
+                <span class="range-val" id="line-height-val">33px</span>
               </div>
             </div>
           </div>
@@ -86,12 +95,12 @@
           </div>
 
           <div class="control-group">
-            <label>Цвет чернил (ручки)</label>
+            <label>Цвет ручки</label>
             <div class="color-options">
-              <div class="color-swatch active" data-color="#1c3b88" style="background-color: #1c3b88;" title="Синяя паста"></div>
-              <div class="color-swatch" data-color="#222222" style="background-color: #222222;" title="Черная паста"></div>
-              <div class="color-swatch" data-color="#9a1c1c" style="background-color: #9a1c1c;" title="Красная паста"></div>
-              <div class="color-swatch custom-color" title="Свой цвет">
+              <div class="color-swatch active" data-color="#1c3b88" style="background-color: #1c3b88;" title="Синяя"></div>
+              <div class="color-swatch" data-color="#222222" style="background-color: #222222;" title="Черная"></div>
+              <div class="color-swatch" data-color="#9a1c1c" style="background-color: #9a1c1c;" title="Красная"></div>
+              <div class="color-swatch custom-color" title="Выбрать цвет">
                 <input type="color" id="ink-color-picker" value="#1c3b88">
               </div>
             </div>
@@ -99,51 +108,51 @@
         </div>
 
         <div class="panel-card">
-          <h2 class="card-title">📖 Параметры листа</h2>
+          <h2 class="card-title">Параметры листа</h2>
           
           <div class="control-group">
-            <label for="paper-select">Стиль бумаги</label>
+            <label for="paper-select">Разлиновка</label>
             <select id="paper-select">
-              <option value="grid">Тетрадь в клетку</option>
-              <option value="lines">Тетрадь в линейку</option>
-              <option value="blank">Чистый белый лист</option>
+              <option value="grid">В клетку</option>
+              <option value="lines">В линейку</option>
+              <option value="blank">Чистый лист</option>
             </select>
           </div>
 
           <div class="control-group">
-            <label>Добавить «живой шум» (искажения)</label>
+            <label>Искажения почерка</label>
             <div class="checkbox-group">
               <label class="custom-checkbox">
                 <input type="checkbox" id="jitter-incline" checked>
                 <span class="checkmark"></span>
-                Разный наклон букв (симуляция наклона)
+                Случайный наклон букв
               </label>
               <label class="custom-checkbox">
                 <input type="checkbox" id="jitter-size" checked>
                 <span class="checkmark"></span>
-                Разный размер букв (симуляция нажима)
+                Случайный размер букв
               </label>
               <label class="custom-checkbox">
                 <input type="checkbox" id="jitter-margin" checked>
                 <span class="checkmark"></span>
-                Неровное начало строки (кривизна полей)
+                Неровные поля (отступы)
               </label>
             </div>
           </div>
         </div>
 
         <div class="panel-card action-card">
-          <button id="convert-btn" class="primary-btn">✨ Сгенерировать конспект</button>
+          <button id="convert-btn" class="primary-btn">Сгенерировать конспект</button>
         </div>
       </section>
 
       <!-- Right Panel: Live Preview & Export -->
       <section class="preview-panel">
         <div class="preview-header">
-          <h2 class="section-title">🖼️ Предпросмотр конспекта</h2>
+          <h2 class="section-title">Предпросмотр</h2>
           <div class="export-actions">
-            <button id="download-jpg-btn" class="secondary-btn">💾 Скачать JPG</button>
-            <button id="download-pdf-btn" class="secondary-btn gold-btn">📄 Экспорт в PDF</button>
+            <button id="download-jpg-btn" class="secondary-btn">Скачать JPG</button>
+            <button id="download-pdf-btn" class="secondary-btn gold-btn">Экспорт в PDF</button>
           </div>
         </div>
 
@@ -151,8 +160,7 @@
           <div id="pages-gallery" class="pages-gallery">
             <!-- Canvas pages are dynamically added here -->
             <div class="empty-state">
-              <div class="empty-icon">📝</div>
-              <p>Введите текст слева и нажмите кнопку генерации для создания конспекта.</p>
+              <p>Введите текст слева и нажмите генерацию.</p>
             </div>
           </div>
         </div>
