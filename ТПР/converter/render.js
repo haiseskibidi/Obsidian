@@ -80,7 +80,7 @@ async function generateNotebook(onlyFirstPage = false) {
     const fontSize = parseInt($('font-size').value), lineHeight = parseInt($('line-height').value);
     const marginTop = parseInt($('margin-top').value), marginLeft = parseInt($('margin-left').value);
     const fontDiversity = parseFloat($('font-diversity').value);
-    const jitterIncline = $('jitter-incline'), jitterSize = $('jitter-size'), jitterMargin = $('jitter-margin');
+    const jitterIncline = $('jitter-incline'), jitterSize = $('jitter-size'), jitterMargin = $('jitter-margin'), jitterBaseline = $('jitter-baseline');
 
     const fontKey = $('font-select').value;
     const fontName = fontKey === 'custom' ? window.customFontFamily : (window.fontMap[fontKey] || 'Lorenco');
@@ -166,9 +166,7 @@ async function generateNotebook(onlyFirstPage = false) {
       currentY = marginTop + fontSize;
     }
 
-    // Initialize first page
     addNewPage();
-
     paragraphs.forEach((paragraph, pIdx) => {
       if (paragraph.trim() === '') {
         currentY += lineHeight;
@@ -181,6 +179,10 @@ async function generateNotebook(onlyFirstPage = false) {
       
       // Apply slight margin jitter for the beginning of paragraph
       currentX = marginLeft + (jitterMargin.checked ? Math.random() * 15 - 5 : 0);
+      // плавающая базовая линия — синусоида с уникальной фазой/амплитудой на каждую строку
+      let lineWavePhase = Math.random() * Math.PI * 2;
+      let lineWaveAmp = 1.5 + Math.random() * 3;
+      let lineWaveFreq = 0.005 + Math.random() * 0.008;
 
       words.forEach((word, wIdx) => {
         // Measure word width with current font size
@@ -191,9 +193,11 @@ async function generateNotebook(onlyFirstPage = false) {
         const rightBoundary = marginLeft + contentWidth;
         if (currentX + wordWidth > rightBoundary) {
           currentY += lineHeight;
-          
           // Apply slight margin jitter for wrapped lines
           currentX = marginLeft + (jitterMargin.checked ? Math.random() * 10 - 3 : 0);
+          lineWavePhase = Math.random() * Math.PI * 2;
+          lineWaveAmp = 1.5 + Math.random() * 3;
+          lineWaveFreq = 0.005 + Math.random() * 0.008;
 
           if (currentY > bgImage.height - paddingBottom) addNewPage();
         }
@@ -211,23 +215,20 @@ async function generateNotebook(onlyFirstPage = false) {
           const charWidth = ctx.measureText(char).width;
 
           // Apply translations for rotation around the character baseline
-          ctx.translate(currentX, currentY);
+          const baselineShift = (jitterBaseline && jitterBaseline.checked) ? Math.sin(currentX * lineWaveFreq + lineWavePhase) * lineWaveAmp : 0;
+          ctx.translate(currentX, currentY + baselineShift);
           ctx.rotate(angle);
           
           // Draw character
           ctx.fillText(char, 0, 0);
-
           ctx.restore();
-          
-          // Advance cursor X
           currentX += charWidth;
         });
 
-        // Add space between words
+        // add space between words
         ctx.font = `${fontSize}px "${fontName}"`;
         currentX += ctx.measureText(' ').width;
       });
-
       currentY += lineHeight;
       if (currentY > bgImage.height - paddingBottom) addNewPage();
     });

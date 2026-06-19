@@ -219,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
   jitterIncline.addEventListener('change', triggerRender);
   jitterSize.addEventListener('change', triggerRender);
   jitterMargin.addEventListener('change', triggerRender);
+  document.getElementById('jitter-baseline').addEventListener('change', triggerRender);
 
   // Realistic camera effects listeners
   ['photo-lighting', 'photo-ghosting', 'photo-curves'].forEach(id => {
