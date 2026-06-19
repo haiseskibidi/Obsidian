@@ -10,17 +10,25 @@ const loadBackgroundImage = src => new Promise((res, rej) => {
 function finalizePageEffects(ctx, canvas, photoLighting, photoCurves) {
   if (photoCurves && photoCurves.checked) {
     ctx.save();
-    for (let i = 0; i < 3; i++) {
-      const x = canvas.width * (0.2 + i * 0.3) + (Math.random() * 60 - 30), w = 110 + Math.random() * 60;
-      ctx.globalCompositeOperation = 'multiply';
-      const sg = ctx.createLinearGradient(x - w/2, 0, x + w/2, 0);
-      [0, 0.5, 1].forEach((v, idx) => sg.addColorStop(v, `rgba(15, 25, 45, ${idx === 1 ? 0.16 : 0})`));
-      ctx.fillStyle = sg; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.globalCompositeOperation = 'screen';
-      const pg = ctx.createLinearGradient(x - w, 0, x, 0);
-      [0, 0.5, 1].forEach((v, idx) => pg.addColorStop(v, `rgba(255, 255, 255, ${idx === 1 ? 0.12 : 0})`));
-      ctx.fillStyle = pg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const count = 1 + Math.floor(Math.random() * 2), used = [];
+    for (let i = 0; i < count; i++) {
+      let x1, attempts = 0;
+      do { x1 = canvas.width * (0.2 + Math.random() * 0.6); attempts++; }
+      while (used.some(p => Math.abs(p - x1) < 220) && attempts < 10);
+      used.push(x1);
+      const x2 = x1 + (Math.random() * 100 - 50), cp1 = (Math.random() * 2 - 1) * 60, cp2 = (Math.random() * 2 - 1) * 60, blurVal = 80 + Math.random() * 40;
+      for (let j = 0; j < 2; j++) {
+        ctx.save();
+        ctx.globalCompositeOperation = j === 0 ? 'multiply' : 'screen';
+        ctx.strokeStyle = j === 0 ? 'rgba(15,25,45,0.015)' : 'rgba(255,255,255,0.015)';
+        ctx.lineWidth = 8;
+        ctx.shadowColor = j === 0 ? 'rgba(15,25,45,0.16)' : 'rgba(255,255,255,0.14)';
+        ctx.shadowBlur = blurVal;
+        ctx.shadowOffsetX = j === 0 ? 5 : -5;
+        ctx.beginPath(); ctx.moveTo(x1, -50);
+        ctx.bezierCurveTo(x1 + cp1, canvas.height * 0.33, x2 + cp2, canvas.height * 0.66, x2, canvas.height + 50);
+        ctx.stroke(); ctx.restore();
+      }
     }
     ctx.restore();
   }
@@ -109,8 +117,8 @@ async function generateNotebook(onlyFirstPage = false) {
       ctx = canvas.getContext('2d');
       
       ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
-      if (photoLighting && photoLighting.checked) {
-        ctx.fillStyle = 'rgba(10, 15, 30, 0.05)';
+      if ((photoLighting && photoLighting.checked) || (photoCurves && photoCurves.checked)) {
+        ctx.fillStyle = (photoLighting && photoLighting.checked) ? 'rgba(10, 15, 30, 0.05)' : 'rgba(10, 15, 30, 0.025)';
         ctx.fillRect(0, 0, bgImage.width, bgImage.height);
       }
       
@@ -150,12 +158,9 @@ async function generateNotebook(onlyFirstPage = false) {
     addNewPage();
 
     paragraphs.forEach((paragraph, pIdx) => {
-      // Handle empty lines (paragraph breaks)
       if (paragraph.trim() === '') {
         currentY += lineHeight;
-        if (currentY > bgImage.height - paddingBottom) {
-          addNewPage();
-        }
+        if (currentY > bgImage.height - paddingBottom) addNewPage();
         return;
       }
 
@@ -178,10 +183,7 @@ async function generateNotebook(onlyFirstPage = false) {
           // Apply slight margin jitter for wrapped lines
           currentX = marginLeft + (jitterMargin.checked ? Math.random() * 10 - 3 : 0);
 
-          // Add a new page if we exceed bottom margin
-          if (currentY > bgImage.height - paddingBottom) {
-            addNewPage();
-          }
+          if (currentY > bgImage.height - paddingBottom) addNewPage();
         }
 
         // Draw the word character-by-character to apply letter jitters
@@ -214,11 +216,8 @@ async function generateNotebook(onlyFirstPage = false) {
         currentX += ctx.measureText(' ').width;
       });
 
-      // Carriage return to next line at the end of paragraph
       currentY += lineHeight;
-      if (currentY > bgImage.height - paddingBottom) {
-        addNewPage();
-      }
+      if (currentY > bgImage.height - paddingBottom) addNewPage();
     });
 
     if (canvas && ctx) {
