@@ -11,15 +11,15 @@ function finalizePageEffects(ctx, canvas, photoLighting, photoCurves) {
   if (photoCurves && photoCurves.checked) {
     ctx.save();
     for (let i = 0; i < 3; i++) {
-      const x = canvas.width * (0.2 + i * 0.3) + (Math.random() * 60 - 30), w = 150 + Math.random() * 80;
+      const x = canvas.width * (0.2 + i * 0.3) + (Math.random() * 60 - 30), w = 110 + Math.random() * 60;
       ctx.globalCompositeOperation = 'multiply';
       const sg = ctx.createLinearGradient(x - w/2, 0, x + w/2, 0);
-      [0, 0.5, 1].forEach((v, idx) => sg.addColorStop(v, `rgba(0, 0, 0, ${idx === 1 ? 0.045 : 0})`));
+      [0, 0.5, 1].forEach((v, idx) => sg.addColorStop(v, `rgba(15, 25, 45, ${idx === 1 ? 0.16 : 0})`));
       ctx.fillStyle = sg; ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       ctx.globalCompositeOperation = 'screen';
       const pg = ctx.createLinearGradient(x - w, 0, x, 0);
-      [0, 0.5, 1].forEach((v, idx) => pg.addColorStop(v, `rgba(255, 255, 255, ${idx === 1 ? 0.035 : 0})`));
+      [0, 0.5, 1].forEach((v, idx) => pg.addColorStop(v, `rgba(255, 255, 255, ${idx === 1 ? 0.12 : 0})`));
       ctx.fillStyle = pg; ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
     ctx.restore();
@@ -28,18 +28,18 @@ function finalizePageEffects(ctx, canvas, photoLighting, photoCurves) {
   if (photoLighting && photoLighting.checked) {
     ctx.save();
     const lg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    lg.addColorStop(0, 'rgba(255, 235, 180, 0.045)');
+    lg.addColorStop(0, 'rgba(255, 220, 140, 0.14)');
     lg.addColorStop(0.5, 'rgba(0, 0, 0, 0)');
-    lg.addColorStop(1, 'rgba(8, 16, 32, 0.12)');
+    lg.addColorStop(1, 'rgba(8, 16, 32, 0.22)');
     ctx.fillStyle = lg; ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const vg = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width/2.5, canvas.width/2, canvas.height/2, canvas.height*0.95);
-    vg.addColorStop(0, 'rgba(0, 0, 0, 0)'); vg.addColorStop(1, 'rgba(0, 0, 0, 0.16)');
+    vg.addColorStop(0, 'rgba(0, 0, 0, 0)'); vg.addColorStop(1, 'rgba(0, 0, 0, 0.32)');
     ctx.fillStyle = vg; ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const gc = document.createElement('canvas'); gc.width = gc.height = 100;
     const gd = gc.getContext('2d').createImageData(100, 100);
-    for (let i = 0; i < gd.data.length; i += 4) gd.data[i] = gd.data[i+1] = gd.data[i+2] = Math.random() * 255, gd.data[i+3] = 6;
+    for (let i = 0; i < gd.data.length; i += 4) gd.data[i] = gd.data[i+1] = gd.data[i+2] = Math.random() * 255, gd.data[i+3] = 12;
     gc.getContext('2d').putImageData(gd, 0, 0);
     ctx.fillStyle = ctx.createPattern(gc, 'repeat');
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -58,6 +58,8 @@ async function generateNotebook(onlyFirstPage = false) {
   }
 
   const fragment = document.createDocumentFragment(), loader = $('render-loader');
+  let canvas = null, ctx = null;
+  const photoLighting = $('photo-lighting'), photoGhosting = $('photo-ghosting'), photoCurves = $('photo-curves');
 
   if (loader && !onlyFirstPage) {
     loader.style.display = 'flex';
@@ -66,9 +68,6 @@ async function generateNotebook(onlyFirstPage = false) {
 
   try {
     const bgImage = await loadBackgroundImage($('paper-select').value);
-    const photoLighting = $('photo-lighting');
-    const photoGhosting = $('photo-ghosting');
-    const photoCurves = $('photo-curves');
 
     const fontSize = parseInt($('font-size').value), lineHeight = parseInt($('line-height').value);
     const marginTop = parseInt($('margin-top').value), marginLeft = parseInt($('margin-left').value);
@@ -80,8 +79,6 @@ async function generateNotebook(onlyFirstPage = false) {
 
     const handwritingFonts = ['Lorenco', 'Abram', 'Bad Script', 'Benvolio', 'Eskal', 'Gregory', 'Lazy Crazy', 'Merkucio', 'Pag', 'Paris', 'Rozovii', 'Salavat', 'Shlapak', 'Stefano', 'Tibalt'];
 
-    let canvas = null;
-    let ctx = null;
     let currentX = marginLeft;
     let currentY = marginTop + fontSize;
     const paddingBottom = parseInt(document.getElementById('margin-bottom').value);
@@ -112,12 +109,16 @@ async function generateNotebook(onlyFirstPage = false) {
       ctx = canvas.getContext('2d');
       
       ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
+      if (photoLighting && photoLighting.checked) {
+        ctx.fillStyle = 'rgba(10, 15, 30, 0.05)';
+        ctx.fillRect(0, 0, bgImage.width, bgImage.height);
+      }
       
       if (photoGhosting && photoGhosting.checked && paragraphs.length > 0) {
         ctx.save();
-        ctx.fillStyle = window.activeColor || '#4260bb';
-        ctx.globalAlpha = 0.04;
-        ctx.filter = 'blur(2.2px)';
+        ctx.fillStyle = '#50608c';
+        ctx.globalAlpha = 0.095;
+        ctx.filter = 'blur(3.5px)';
         ctx.translate(bgImage.width, 0);
         ctx.scale(-1, 1);
         ctx.font = `${fontSize * 0.95}px "${fontName}"`;
