@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Toggle Collapsible Cards
   document.querySelectorAll('.card-header').forEach(h => h.addEventListener('click', () => h.closest('.panel-card').classList.toggle('collapsed')));
 
+  // восстанавливаем сохранённые настройки (если есть)
+  if (typeof loadSettings === 'function') loadSettings();
+
   // Debounced real-time render helper
   let renderTimeout;
   function triggerRender(onlyFirstPage = false) {
@@ -112,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       customColorSwatch.classList.remove('active');
       swatch.classList.add('active');
       window.activeColor = swatch.getAttribute('data-color');
+      saveSettings();
       triggerRender();
     });
   });
@@ -120,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colorSwatches.forEach(s => s.classList.remove('active'));
     customColorSwatch.classList.add('active');
     window.activeColor = e.target.value;
+    saveSettings();
     triggerRender();
   });
 
@@ -231,6 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCharCount() {
     charTotal.textContent = textInput.value.length;
   }
+
+  // подключаем автосохранение настроек
+  if (typeof initSettingsPersistence === 'function') initSettingsPersistence();
 
   // Pre-generate the default content on load once fonts are ready
   document.fonts.ready.then(() => {
