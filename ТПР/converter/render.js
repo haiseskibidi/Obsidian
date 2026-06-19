@@ -77,6 +77,7 @@ async function generateNotebook() {
       canvas.width = bgImage.width * 2; // Render at 2x resolution (Retina/High-DPI sharp rendering)
       canvas.height = bgImage.height * 2;
       canvas.className = 'handwritten-page';
+      canvas.style.setProperty('--page-width', bgImage.width + 'px');
       
       ctx = canvas.getContext('2d');
       ctx.scale(2, 2); // Scale coordinate system for 2x resolution drawing

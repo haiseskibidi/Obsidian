@@ -45,6 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const jitterSize = document.getElementById('jitter-size');
   const jitterMargin = document.getElementById('jitter-margin');
 
+  // Toggle Collapsible Cards
+  const cardHeaders = document.querySelectorAll('.card-header');
+  cardHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const card = header.closest('.panel-card');
+      card.classList.toggle('collapsed');
+    });
+  });
+
   // Debounced real-time render helper
   let renderTimeout;
   function triggerRender() {
@@ -148,9 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   zoomFitBtn.addEventListener('click', () => {
     const wrapper = document.querySelector('.pages-gallery-wrapper');
+    const canvas = pagesGallery.querySelector('canvas');
     if (wrapper) {
-      const height = wrapper.clientHeight - 48; // 24px padding top + bottom
-      const targetScale = Math.max(0.3, Math.min(1.5, height / 928));
+      const baseHeight = canvas ? (canvas.height / 2) : 928;
+      const availableHeight = wrapper.clientHeight - 60; // 30px padding top + bottom
+      const targetScale = Math.max(0.3, Math.min(1.5, availableHeight / baseHeight));
       updateZoom(targetScale);
     }
   });
