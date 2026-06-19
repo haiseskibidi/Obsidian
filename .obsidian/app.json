@@ -9,5 +9,8 @@
   },
   "alwaysUpdateLinks": true,
   "showLineNumber": false,
-  "showInlineTitle": true
+  "showInlineTitle": true,
+  "cssSnippets": [
+    "slides-fit"
+  ]
 }
