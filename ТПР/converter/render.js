@@ -74,14 +74,15 @@ async function generateNotebook() {
       pageWrapper.className = 'page-wrapper';
       
       canvas = document.createElement('canvas');
-      canvas.width = bgImage.width;
-      canvas.height = bgImage.height;
+      canvas.width = bgImage.width * 2; // Render at 2x resolution (Retina/High-DPI sharp rendering)
+      canvas.height = bgImage.height * 2;
       canvas.className = 'handwritten-page';
       
       ctx = canvas.getContext('2d');
+      ctx.scale(2, 2); // Scale coordinate system for 2x resolution drawing
       
-      // Draw the loaded high-res background template
-      ctx.drawImage(bgImage, 0, 0);
+      // Draw the loaded background template scaled to context bounds
+      ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
       
       // Set styles
       ctx.fillStyle = window.activeColor || '#1c3b88';

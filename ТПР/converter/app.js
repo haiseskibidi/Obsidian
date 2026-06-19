@@ -1,23 +1,7 @@
 // Global state variables accessible by render.js
 window.activeColor = '#1c3b88';
 window.customFontFamily = null;
-window.fontMap = {
-  'lorenco': 'Lorenco',
-  'abram': 'Abram',
-  'bad-script': 'Bad Script',
-  'benvolio': 'Benvolio',
-  'eskal': 'Eskal',
-  'gregory': 'Gregory',
-  'lazy-crazy': 'Lazy Crazy',
-  'merkucio': 'Merkucio',
-  'pag': 'Pag',
-  'paris': 'Paris',
-  'rozovii': 'Rozovii',
-  'salavat': 'Salavat',
-  'shlapak': 'Shlapak',
-  'stefano': 'Stefano',
-  'tibalt': 'Tibalt'
-};
+window.fontMap = { 'lorenco': 'Lorenco', 'abram': 'Abram', 'bad-script': 'Bad Script', 'benvolio': 'Benvolio', 'eskal': 'Eskal', 'gregory': 'Gregory', 'lazy-crazy': 'Lazy Crazy', 'merkucio': 'Merkucio', 'pag': 'Pag', 'paris': 'Paris', 'rozovii': 'Rozovii', 'salavat': 'Salavat', 'shlapak': 'Shlapak', 'stefano': 'Stefano', 'tibalt': 'Tibalt' };
 
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
@@ -47,6 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const pagesGallery = document.getElementById('pages-gallery');
   const printContainer = document.getElementById('print-container');
   const updateTextBtn = document.getElementById('update-text-btn');
+
+  // Zoom Controls elements and state
+  let currentScale = 0.65;
+  const zoomOutBtn = document.getElementById('zoom-out-btn');
+  const zoomInBtn = document.getElementById('zoom-in-btn');
+  const zoomFitBtn = document.getElementById('zoom-fit-btn');
+  const zoomLevel = document.getElementById('zoom-level');
   
   // Settings elements for real-time update
   const paperSelect = document.getElementById('paper-select');
@@ -78,26 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
   textInput.addEventListener('input', updateCharCount);
   updateTextBtn.addEventListener('click', triggerRender);
   
-  fontSizeInput.addEventListener('input', (e) => {
-    fontSizeVal.textContent = `${e.target.value}px`;
-    triggerRender();
-  });
-  lineHeightInput.addEventListener('input', (e) => {
-    lineHeightVal.textContent = `${e.target.value}px`;
-    triggerRender();
-  });
-  marginTopInput.addEventListener('input', (e) => {
-    marginTopVal.textContent = `${e.target.value}px`;
-    triggerRender();
-  });
-  marginLeftInput.addEventListener('input', (e) => {
-    marginLeftVal.textContent = `${e.target.value}px`;
-    triggerRender();
-  });
-  fontDiversityInput.addEventListener('input', (e) => {
-    fontDiversityVal.textContent = `${Math.round(e.target.value * 100)}%`;
-    triggerRender();
-  });
+  fontSizeInput.addEventListener('input', (e) => { fontSizeVal.textContent = `${e.target.value}px`; triggerRender(); });
+  lineHeightInput.addEventListener('input', (e) => { lineHeightVal.textContent = `${e.target.value}px`; triggerRender(); });
+  marginTopInput.addEventListener('input', (e) => { marginTopVal.textContent = `${e.target.value}px`; triggerRender(); });
+  marginLeftInput.addEventListener('input', (e) => { marginLeftVal.textContent = `${e.target.value}px`; triggerRender(); });
+  fontDiversityInput.addEventListener('input', (e) => { fontDiversityVal.textContent = `${Math.round(e.target.value * 100)}%`; triggerRender(); });
 
   // Font upload and select handlers
   fontSelect.addEventListener('change', (e) => {
@@ -160,18 +136,66 @@ document.addEventListener('DOMContentLoaded', () => {
     triggerRender();
   });
 
-  // Download JPG Action
-  downloadJpgBtn.addEventListener('click', () => {
+  // Zoom Controls actions
+  function updateZoom(newScale) {
+    currentScale = Math.max(0.3, Math.min(1.5, newScale));
+    zoomLevel.textContent = `${Math.round(currentScale * 100)}%`;
+    pagesGallery.style.setProperty('--page-scale', currentScale);
+  }
+
+  zoomOutBtn.addEventListener('click', () => updateZoom(currentScale - 0.05));
+  zoomInBtn.addEventListener('click', () => updateZoom(currentScale + 0.05));
+
+  zoomFitBtn.addEventListener('click', () => {
+    const wrapper = document.querySelector('.pages-gallery-wrapper');
+    if (wrapper) {
+      const height = wrapper.clientHeight - 48; // 24px padding top + bottom
+      const targetScale = Math.max(0.3, Math.min(1.5, height / 928));
+      updateZoom(targetScale);
+    }
+  });
+
+  // Download JPG / ZIP Action
+  downloadJpgBtn.addEventListener('click', async () => {
     const canvases = pagesGallery.querySelectorAll('canvas');
     if (canvases.length === 0) return;
 
-    canvases.forEach((canvas, idx) => {
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = `notebook_page_${idx + 1}.jpeg`;
-      link.click();
-    });
+    const originalText = downloadJpgBtn.textContent;
+    downloadJpgBtn.textContent = 'Сжатие...';
+    downloadJpgBtn.disabled = true;
+
+    try {
+      if (canvases.length === 1) {
+        // Direct download for single page
+        const dataUrl = canvases[0].toDataURL('image/jpeg', 0.95);
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = 'notebook_page_1.jpeg';
+        link.click();
+      } else {
+        // Pack multiple pages into ZIP using JSZip
+        const zip = new JSZip();
+        
+        for (let i = 0; i < canvases.length; i++) {
+          const canvas = canvases[i];
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+          const base64Data = dataUrl.split(',')[1];
+          zip.file(`notebook_page_${i + 1}.jpeg`, base64Data, { base64: true });
+        }
+        
+        const content = await zip.generateAsync({ type: 'blob' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = 'notebook_pages.zip';
+        link.click();
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Ошибка при скачивании файлов.');
+    } finally {
+      downloadJpgBtn.textContent = originalText;
+      downloadJpgBtn.disabled = false;
+    }
   });
 
   // Export PDF Action via window.print()

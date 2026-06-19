@@ -163,7 +163,15 @@
       <!-- Right Panel: Live Preview & Export -->
       <section class="preview-panel">
         <div class="preview-header">
-          <h2 class="section-title">Предпросмотр</h2>
+          <div class="preview-title-area">
+            <h2 class="section-title">Предпросмотр</h2>
+            <div class="zoom-controls">
+              <button id="zoom-out-btn" class="zoom-btn" title="Уменьшить">−</button>
+              <span id="zoom-level">65%</span>
+              <button id="zoom-in-btn" class="zoom-btn" title="Увеличить">+</button>
+              <button id="zoom-fit-btn" class="zoom-btn fit-btn" title="Вписать по высоте">Вписать</button>
+            </div>
+          </div>
           <div class="export-actions">
             <button id="download-jpg-btn" class="secondary-btn">Скачать JPG</button>
             <button id="download-pdf-btn" class="secondary-btn gold-btn">Экспорт в PDF</button>
@@ -185,6 +193,7 @@
   <!-- Print Container (used only for PDF export) -->
   <div id="print-container"></div>
 
+  <script src="jszip.min.js"></script>
   <script src="backgrounds.js"></script>
   <script src="render.js"></script>
   <script src="app.js"></script>
