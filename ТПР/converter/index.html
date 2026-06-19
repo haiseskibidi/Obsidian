@@ -160,6 +160,31 @@
               </select>
             </div>
 
+            <div class="control-row">
+              <div class="control-group half">
+                <label for="margin-right">Отступ справа</label>
+                <div class="range-wrapper">
+                  <input type="range" id="margin-right" min="10" max="150" value="45">
+                  <span class="range-val" id="margin-right-val">45px</span>
+                </div>
+              </div>
+              <div class="control-group half">
+                <label for="margin-bottom">Отступ снизу</label>
+                <div class="range-wrapper">
+                  <input type="range" id="margin-bottom" min="10" max="150" value="60">
+                  <span class="range-val" id="margin-bottom-val">60px</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label for="content-width">Ширина контента</label>
+              <div class="range-wrapper">
+                <input type="range" id="content-width" min="300" max="700" value="616">
+                <span class="range-val" id="content-width-val">616px</span>
+              </div>
+            </div>
+
             <div class="control-group">
               <label>Искажения почерка</label>
               <div class="checkbox-group">
@@ -208,6 +233,10 @@
             <div class="empty-state">
               <p>Введите текст слева и нажмите генерацию.</p>
             </div>
+          </div>
+          <div id="render-loader" class="render-loader" style="display: none;">
+            <div class="spinner"></div>
+            <p>Генерация конспекта...</p>
           </div>
         </div>
       </section>

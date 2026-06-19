@@ -35,6 +35,13 @@ async function generateNotebook(onlyFirstPage = false) {
   }
 
   const fragment = document.createDocumentFragment();
+  const loader = document.getElementById('render-loader');
+
+  if (loader && !onlyFirstPage) {
+    loader.style.display = 'flex';
+    // Yield execution to the browser thread to paint the loader
+    await new Promise(resolve => setTimeout(resolve, 30));
+  }
 
   try {
     // 1. Load Background Image
@@ -62,8 +69,9 @@ async function generateNotebook(onlyFirstPage = false) {
     let ctx = null;
     let currentX = marginLeft;
     let currentY = marginTop + fontSize;
-    const paddingRight = 45;
-    const paddingBottom = 60;
+    const paddingRight = parseInt(document.getElementById('margin-right').value);
+    const paddingBottom = parseInt(document.getElementById('margin-bottom').value);
+    const contentWidth = parseInt(document.getElementById('content-width').value);
 
     // Split text into paragraphs (retaining newlines)
     const paragraphs = rawText.split('\n');
@@ -130,8 +138,9 @@ async function generateNotebook(onlyFirstPage = false) {
         ctx.font = `${fontSize}px "${fontName}"`;
         const wordWidth = ctx.measureText(word + ' ').width;
 
-        // Wrap lines if we exceed the right margin of the sheet
-        if (currentX + wordWidth > bgImage.width - paddingRight) {
+        // Wrap lines if we exceed the right margin or max content width
+        const rightBoundary = Math.min(bgImage.width - paddingRight, marginLeft + contentWidth);
+        if (currentX + wordWidth > rightBoundary) {
           currentY += lineHeight;
           
           // Apply slight margin jitter for wrapped lines
@@ -200,7 +209,9 @@ async function generateNotebook(onlyFirstPage = false) {
 
     pagesGallery.innerHTML = '';
     pagesGallery.appendChild(fragment);
+    if (loader) loader.style.display = 'none';
   } catch (err) {
+    if (loader) loader.style.display = 'none';
     if (err.message === 'OnlyFirstPageLimit') {
       pagesGallery.innerHTML = '';
       pagesGallery.appendChild(fragment);

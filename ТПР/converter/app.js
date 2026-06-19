@@ -6,6 +6,9 @@ window.fontMap = { 'lorenco': 'Lorenco', 'abram': 'Abram', 'bad-script': 'Bad Sc
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
   const textInput = document.getElementById('text-input'), charTotal = document.getElementById('char-total');
+  const marginRightInput = document.getElementById('margin-right'), marginRightVal = document.getElementById('margin-right-val');
+  const marginBottomInput = document.getElementById('margin-bottom'), marginBottomVal = document.getElementById('margin-bottom-val');
+  const contentWidthInput = document.getElementById('content-width'), contentWidthVal = document.getElementById('content-width-val');
   const fontSelect = document.getElementById('font-select'), fontUpload = document.getElementById('font-upload'), fontStatus = document.getElementById('font-status');
   const fontSizeInput = document.getElementById('font-size'), fontSizeVal = document.getElementById('font-size-val');
   const lineHeightInput = document.getElementById('line-height'), lineHeightVal = document.getElementById('line-height-val');
@@ -37,12 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Debounced real-time render helper
   let renderTimeout;
   function triggerRender(onlyFirstPage = false) {
+    const isDraft = (onlyFirstPage === true); // Avoids treating Event objects as true
     clearTimeout(renderTimeout);
     renderTimeout = setTimeout(() => {
       if (typeof window.generateNotebook === 'function') {
-        window.generateNotebook(onlyFirstPage);
+        window.generateNotebook(isDraft);
       }
-    }, onlyFirstPage ? 30 : 150);
+    }, isDraft ? 30 : 150);
   }
 
   // Default text relating to user's current project (ТПР)
@@ -72,6 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fontDiversityInput.addEventListener('input', (e) => { fontDiversityVal.textContent = `${Math.round(e.target.value * 100)}%`; triggerRender(true); });
   fontDiversityInput.addEventListener('change', () => triggerRender(false));
+  marginRightInput.addEventListener('input', (e) => { marginRightVal.textContent = `${e.target.value}px`; triggerRender(true); });
+  marginRightInput.addEventListener('change', () => triggerRender(false));
+  marginBottomInput.addEventListener('input', (e) => { marginBottomVal.textContent = `${e.target.value}px`; triggerRender(true); });
+  marginBottomInput.addEventListener('change', () => triggerRender(false));
+  contentWidthInput.addEventListener('input', (e) => { contentWidthVal.textContent = `${e.target.value}px`; triggerRender(true); });
+  contentWidthInput.addEventListener('change', () => triggerRender(false));
 
   // Font upload and select handlers
   fontSelect.addEventListener('change', (e) => {
@@ -230,6 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
   jitterIncline.addEventListener('change', triggerRender);
   jitterSize.addEventListener('change', triggerRender);
   jitterMargin.addEventListener('change', triggerRender);
+  marginRightInput.addEventListener('change', triggerRender);
+  marginBottomInput.addEventListener('change', triggerRender);
+  contentWidthInput.addEventListener('change', triggerRender);
 
   // Helper: Update char count
   function updateCharCount() {
