@@ -7,36 +7,44 @@ const loadBackgroundImage = src => new Promise((res, rej) => {
   img.onerror = () => rej(new Error(`Failed to load background: ${src}`));
 });
 
-const tableCache = {};
-const loadTableImage = key => (!key || key === 'none' || !window.tableData[key]) ? Promise.resolve(null) : (tableCache[key] ? Promise.resolve(tableCache[key]) : new Promise(res => {
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.src = window.tableData[key];
-  img.onload = () => res(tableCache[key] = img);
-  img.onerror = () => res(null);
-}));
-
-function finalizePageEffects(pageCtx, pageCanvas, tableImage, photoShadow) {
-  if (!tableImage) return;
-  pageCtx.restore();
-  if (photoShadow && photoShadow.checked) {
-    const shadowGrad = pageCtx.createLinearGradient(0, 0, pageCanvas.width, pageCanvas.height);
-    shadowGrad.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
-    shadowGrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.02)');
-    shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0.18)');
-    pageCtx.fillStyle = shadowGrad;
-    pageCtx.globalAlpha = 1.0;
-    pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+function finalizePageEffects(ctx, canvas, photoLighting, photoCurves) {
+  if (photoCurves && photoCurves.checked) {
+    ctx.save();
+    for (let i = 0; i < 3; i++) {
+      const x = canvas.width * (0.2 + i * 0.3) + (Math.random() * 60 - 30), w = 150 + Math.random() * 80;
+      ctx.globalCompositeOperation = 'multiply';
+      const sg = ctx.createLinearGradient(x - w/2, 0, x + w/2, 0);
+      [0, 0.5, 1].forEach((v, idx) => sg.addColorStop(v, `rgba(0, 0, 0, ${idx === 1 ? 0.045 : 0})`));
+      ctx.fillStyle = sg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.globalCompositeOperation = 'screen';
+      const pg = ctx.createLinearGradient(x - w, 0, x, 0);
+      [0, 0.5, 1].forEach((v, idx) => pg.addColorStop(v, `rgba(255, 255, 255, ${idx === 1 ? 0.035 : 0})`));
+      ctx.fillStyle = pg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.restore();
   }
-  const vignette = pageCtx.createRadialGradient(
-    pageCanvas.width / 2, pageCanvas.height / 2, pageCanvas.width / 2.5,
-    pageCanvas.width / 2, pageCanvas.height / 2, pageCanvas.height * 0.95
-  );
-  vignette.addColorStop(0, 'rgba(0, 0, 0, 0)');
-  vignette.addColorStop(1, 'rgba(0, 0, 0, 0.28)');
-  pageCtx.fillStyle = vignette;
-  pageCtx.globalAlpha = 1.0;
-  pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+
+  if (photoLighting && photoLighting.checked) {
+    ctx.save();
+    const lg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    lg.addColorStop(0, 'rgba(255, 235, 180, 0.045)');
+    lg.addColorStop(0.5, 'rgba(0, 0, 0, 0)');
+    lg.addColorStop(1, 'rgba(8, 16, 32, 0.12)');
+    ctx.fillStyle = lg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const vg = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width/2.5, canvas.width/2, canvas.height/2, canvas.height*0.95);
+    vg.addColorStop(0, 'rgba(0, 0, 0, 0)'); vg.addColorStop(1, 'rgba(0, 0, 0, 0.16)');
+    ctx.fillStyle = vg; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const gc = document.createElement('canvas'); gc.width = gc.height = 100;
+    const gd = gc.getContext('2d').createImageData(100, 100);
+    for (let i = 0; i < gd.data.length; i += 4) gd.data[i] = gd.data[i+1] = gd.data[i+2] = Math.random() * 255, gd.data[i+3] = 6;
+    gc.getContext('2d').putImageData(gd, 0, 0);
+    ctx.fillStyle = ctx.createPattern(gc, 'repeat');
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+  }
 }
 
 // Core Render Text Pipeline
@@ -49,8 +57,7 @@ async function generateNotebook(onlyFirstPage = false) {
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-  const loader = $('render-loader');
+  const fragment = document.createDocumentFragment(), loader = $('render-loader');
 
   if (loader && !onlyFirstPage) {
     loader.style.display = 'flex';
@@ -59,19 +66,14 @@ async function generateNotebook(onlyFirstPage = false) {
 
   try {
     const bgImage = await loadBackgroundImage($('paper-select').value);
-    const tableSelect = $('table-select');
-    const photoShadow = $('photo-shadow');
-    const photoTilt = $('photo-tilt');
-    const tableImage = await loadTableImage(tableSelect ? tableSelect.value : 'none');
+    const photoLighting = $('photo-lighting');
+    const photoGhosting = $('photo-ghosting');
+    const photoCurves = $('photo-curves');
 
-    const fontSize = parseInt($('font-size').value);
-    const lineHeight = parseInt($('line-height').value);
-    const marginTop = parseInt($('margin-top').value);
-    const marginLeft = parseInt($('margin-left').value);
+    const fontSize = parseInt($('font-size').value), lineHeight = parseInt($('line-height').value);
+    const marginTop = parseInt($('margin-top').value), marginLeft = parseInt($('margin-left').value);
     const fontDiversity = parseFloat($('font-diversity').value);
-    const jitterIncline = $('jitter-incline');
-    const jitterSize = $('jitter-size');
-    const jitterMargin = $('jitter-margin');
+    const jitterIncline = $('jitter-incline'), jitterSize = $('jitter-size'), jitterMargin = $('jitter-margin');
 
     const fontKey = $('font-select').value;
     const fontName = fontKey === 'custom' ? window.customFontFamily : (window.fontMap[fontKey] || 'Lorenco');
@@ -95,46 +97,41 @@ async function generateNotebook(onlyFirstPage = false) {
       }
 
       if (canvas && ctx) {
-        finalizePageEffects(ctx, canvas, tableImage, photoShadow);
+        finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
       }
 
       const pageWrapper = document.createElement('div');
       pageWrapper.className = 'page-wrapper';
       
       canvas = document.createElement('canvas');
-      const marginOffset = tableImage ? 220 : 0;
-      canvas.width = bgImage.width + marginOffset * 2;
-      canvas.height = bgImage.height + marginOffset * 2;
+      canvas.width = bgImage.width;
+      canvas.height = bgImage.height;
       canvas.className = 'handwritten-page';
       canvas.style.setProperty('--page-width', canvas.width + 'px');
       
       ctx = canvas.getContext('2d');
-      ctx.save();
-      
-      if (tableImage) {
-        ctx.drawImage(tableImage, 0, 0, canvas.width, canvas.height);
-        const deskGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        deskGrad.addColorStop(0, 'rgba(255, 255, 255, 0.04)');
-        deskGrad.addColorStop(1, 'rgba(0, 0, 0, 0.12)');
-        ctx.fillStyle = deskGrad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        const shiftX = (Math.random() * 2 - 1) * 35;
-        const shiftY = (Math.random() * 2 - 1) * 35;
-        ctx.translate(marginOffset + bgImage.width / 2 + shiftX, marginOffset + bgImage.height / 2 + shiftY);
-        if (photoTilt && photoTilt.checked) {
-          ctx.rotate((Math.random() * 2 - 1) * 0.022);
-        }
-        ctx.translate(-bgImage.width / 2, -bgImage.height / 2);
-        
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
-        ctx.shadowBlur = 24;
-        ctx.shadowOffsetX = 4;
-        ctx.shadowOffsetY = 8;
-      }
       
       ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
-      if (tableImage) ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+      
+      if (photoGhosting && photoGhosting.checked && paragraphs.length > 0) {
+        ctx.save();
+        ctx.fillStyle = window.activeColor || '#4260bb';
+        ctx.globalAlpha = 0.04;
+        ctx.filter = 'blur(2.2px)';
+        ctx.translate(bgImage.width, 0);
+        ctx.scale(-1, 1);
+        ctx.font = `${fontSize * 0.95}px "${fontName}"`;
+        
+        let ghostY = marginTop + fontSize * 1.5;
+        const ghostParas = paragraphs.slice(0, 10);
+        ghostParas.forEach(para => {
+          if (para.trim()) {
+            ctx.fillText(para.split('').reverse().join(''), 150, ghostY);
+            ghostY += lineHeight * 1.15;
+          }
+        });
+        ctx.restore();
+      }
       
       ctx.fillStyle = window.activeColor || '#4260bb';
       ctx.textBaseline = 'alphabetic';
@@ -224,7 +221,7 @@ async function generateNotebook(onlyFirstPage = false) {
     });
 
     if (canvas && ctx) {
-      finalizePageEffects(ctx, canvas, tableImage, photoShadow);
+      finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
     }
 
     pagesGallery.innerHTML = '';
@@ -234,7 +231,7 @@ async function generateNotebook(onlyFirstPage = false) {
     if (loader) loader.style.display = 'none';
     if (err.message === 'OnlyFirstPageLimit') {
       if (canvas && ctx) {
-        finalizePageEffects(ctx, canvas, tableImage, photoShadow);
+        finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
       }
       pagesGallery.innerHTML = '';
       pagesGallery.appendChild(fragment);

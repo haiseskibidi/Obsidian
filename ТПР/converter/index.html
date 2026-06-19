@@ -147,25 +147,16 @@
 
         <div class="panel-card" id="card-photo">
           <div class="card-header">
-            <h2 class="card-title">Фото-режим (Стол)</h2>
+            <h2 class="card-title">Реалистичные эффекты</h2>
             <button class="card-toggle-btn" aria-label="Свернуть секцию"><svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           </div>
           <div class="card-body">
             <div class="control-group">
-              <label for="table-select">Текстура стола</label>
-              <select id="table-select">
-                <option value="none" selected>Без стола (только лист)</option>
-                <option value="dark-wood">Темное дерево</option>
-                <option value="light-wood">Светлое дерево</option>
-                <option value="marble">Белый мрамор</option>
-                <option value="concrete">Серый бетон</option>
-              </select>
-            </div>
-            <div class="control-group">
-              <label>Эффекты съемки</label>
+              <label>Параметры бумаги и кадра</label>
               <div class="checkbox-group">
-                <label class="custom-checkbox"><input type="checkbox" id="photo-shadow" checked><span class="checkmark"></span>Тени и освещение лампы</label>
-                <label class="custom-checkbox"><input type="checkbox" id="photo-tilt" checked><span class="checkmark"></span>Случайный наклон кадра</label>
+                <label class="custom-checkbox"><input type="checkbox" id="photo-lighting" checked><span class="checkmark"></span>Неровный свет и шум камеры</label>
+                <label class="custom-checkbox"><input type="checkbox" id="photo-ghosting" checked><span class="checkmark"></span>Просвечивание обратной стороны</label>
+                <label class="custom-checkbox"><input type="checkbox" id="photo-curves" checked><span class="checkmark"></span>Объёмные изгибы листа (3D)</label>
               </div>
             </div>
           </div>

@@ -2,12 +2,6 @@
 window.activeColor = '#4260bb';
 window.customFontFamily = null;
 window.fontMap = { 'lorenco': 'Lorenco', 'abram': 'Abram', 'bad-script': 'Bad Script', 'benvolio': 'Benvolio', 'eskal': 'Eskal', 'gregory': 'Gregory', 'lazy-crazy': 'Lazy Crazy', 'merkucio': 'Merkucio', 'pag': 'Pag', 'paris': 'Paris', 'rozovii': 'Rozovii', 'salavat': 'Salavat', 'shlapak': 'Shlapak', 'stefano': 'Stefano', 'tibalt': 'Tibalt' };
-window.tableData = {
-  'dark-wood': 'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=1200&q=80',
-  'light-wood': 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
-  'marble': 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1200&q=80',
-  'concrete': 'https://images.unsplash.com/photo-1531685250784-7569952593d2?auto=format&fit=crop&w=1200&q=80'
-};
 
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
@@ -226,8 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
   jitterSize.addEventListener('change', triggerRender);
   jitterMargin.addEventListener('change', triggerRender);
 
-  // Photo mode listeners
-  ['table-select', 'photo-shadow', 'photo-tilt'].forEach(id => {
+  // Realistic camera effects listeners
+  ['photo-lighting', 'photo-ghosting', 'photo-curves'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('change', () => triggerRender());
   });
