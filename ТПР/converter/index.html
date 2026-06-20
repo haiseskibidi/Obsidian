@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Конвертер печатного текста в рукописный онлайн бесплатно">
+  <title>Писец — Конвертер текста в рукописный вид</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="ui-base.css">
+  <link rel="stylesheet" href="ui-controls.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <h1 class="app-title">ПИСЕЦ<span class="highlight">.</span></h1>
+      </div>
+      <p class="app-subtitle">Локальный конвертер печатных материалов в конспекты от руки</p>
+    </header>
+
+    <main class="app-workspace">
+      <section class="controls-panel">
+        <div class="panel-card" id="card-input">
+          <div class="card-header">
+            <h2 class="card-title">Ввод текста</h2>
+            <button class="card-toggle-btn" aria-label="Свернуть секцию">
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16">
+                <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="textarea-wrapper">
+              <textarea id="text-input" placeholder="Введите или вставьте сюда текст вашего конспекта..."></textarea>
+              <div class="textarea-footer">
+                <button id="update-text-btn" class="primary-btn text-update-btn">Обновить текст</button>
+                <div class="char-count">Символов: <span id="char-total">0</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card" id="card-font">
+          <div class="card-header">
+            <h2 class="card-title">Настройки почерка</h2>
+            <button class="card-toggle-btn" aria-label="Свернуть секцию">
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16">
+                <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="control-group">
+              <label for="font-select">Выбор почерка</label>
+              <select id="font-select">
+                <option value="lorenco" selected>Lorenco (Рекомендуемый)</option><option value="abram">Abram</option><option value="bad-script">Bad Script</option><option value="benvolio">Benvolio</option><option value="eskal">Eskal</option><option value="gregory">Gregory</option><option value="lazy-crazy">Lazy Crazy</option><option value="merkucio">Merkucio</option><option value="pag">Pag</option><option value="paris">Paris</option><option value="rozovii">Розовый чулок</option><option value="salavat">Салават</option><option value="shlapak">Шлапак</option><option value="stefano">Стефано</option><option value="tibalt">Тибальт</option><option value="custom">-- Загрузить свой шрифт --</option>
+              </select>
+              <input type="file" id="font-upload" accept=".ttf,.otf,.woff,.woff2" style="display: none;">
+              <div id="font-status" class="status-msg"></div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-group half"><label for="font-size">Размер букв</label><div class="range-wrapper"><input type="range" id="font-size" min="16" max="32" value="24"><span class="range-val" id="font-size-val">24px</span></div></div>
+              <div class="control-group half"><label for="line-height">Межстрочный интервал</label><div class="range-wrapper"><input type="range" id="line-height" min="25" max="50" value="34"><span class="range-val" id="line-height-val">34px</span></div></div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-group half"><label for="margin-top">Отступ сверху</label><div class="range-wrapper"><input type="range" id="margin-top" min="20" max="150" value="20"><span class="range-val" id="margin-top-val">20px</span></div></div>
+              <div class="control-group half"><label for="margin-left">Отступ слева (нечётн.)</label><div class="range-wrapper"><input type="range" id="margin-left" min="20" max="120" value="47"><span class="range-val" id="margin-left-val">47px</span></div></div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-group half"><label for="margin-left-even">Отступ слева (чётн.)</label><div class="range-wrapper"><input type="range" id="margin-left-even" min="20" max="150" value="110"><span class="range-val" id="margin-left-even-val">110px</span></div></div>
+              <div class="control-group half"><label for="font-diversity">Разнообразие почерка</label><div class="range-wrapper"><input type="range" id="font-diversity" min="0" max="0.5" step="0.05" value="0"><span class="range-val" id="font-diversity-val">0%</span></div></div>
+            </div>
+
+            <div class="control-group">
+              <label>Цвет ручки</label>
+              <div class="color-options">
+                <div class="color-swatch active" data-color="#4260bb" style="background-color: #4260bb;" title="Синяя"></div>
+                <div class="color-swatch" data-color="#222222" style="background-color: #222222;" title="Черная"></div>
+                <div class="color-swatch" data-color="#9a1c1c" style="background-color: #9a1c1c;" title="Красная"></div>
+                <div class="color-swatch custom-color" title="Выбрать цвет">
+                  <input type="color" id="ink-color-picker" value="#4260bb">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card" id="card-paper">
+          <div class="card-header">
+            <h2 class="card-title">Параметры листа</h2>
+            <button class="card-toggle-btn" aria-label="Свернуть секцию">
+              <svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16">
+                <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="control-group">
+              <label for="paper-select">Разлиновка</label>
+              <select id="paper-select">
+                <option value="page__one__right.png" selected>Тетрадь в клетку (рекомендуемый)</option><option value="page__two__right.png">Тетрадь в клетку (стандартная)</option><option value="page__three__right.png">Тетрадь в клетку (винтажная)</option><option value="page__four__right.png">Чистый белый лист</option><option value="page__five__right.png">Тетрадь в линейку (стандартная)</option><option value="page__six__right.png">Тетрадь в линейку (узкая)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label for="margin-bottom">Отступ снизу</label>
+              <div class="range-wrapper">
+                <input type="range" id="margin-bottom" min="10" max="150" value="69">
+                <span class="range-val" id="margin-bottom-val">69px</span>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label for="content-width">Ширина контента</label>
+              <div class="range-wrapper">
+                <input type="range" id="content-width" min="300" max="900" value="670">
+                <span class="range-val" id="content-width-val">670px</span>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label>Искажения почерка</label>
+              <div class="checkbox-group">
+                <label class="custom-checkbox">
+                  <input type="checkbox" id="jitter-incline" checked>
+                  <span class="checkmark"></span>
+                  Случайный наклон букв
+                </label>
+                <label class="custom-checkbox">
+                  <input type="checkbox" id="jitter-size" checked>
+                  <span class="checkmark"></span>
+                  Случайный размер букв
+                </label>
+                <label class="custom-checkbox">
+                  <input type="checkbox" id="jitter-margin" checked>
+                  <span class="checkmark"></span>
+                  Неровные поля (отступы)
+                </label>
+                <label class="custom-checkbox">
+                  <input type="checkbox" id="jitter-baseline" checked>
+                  <span class="checkmark"></span>
+                  Плавающая базовая линия
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card" id="card-photo">
+          <div class="card-header">
+            <h2 class="card-title">Реалистичные эффекты</h2>
+            <button class="card-toggle-btn" aria-label="Свернуть секцию"><svg class="chevron-icon" viewBox="0 0 24 24" width="16" height="16"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="card-body">
+            <div class="control-group">
+              <label>Параметры бумаги и кадра</label>
+              <div class="checkbox-group">
+                <label class="custom-checkbox"><input type="checkbox" id="photo-lighting" checked><span class="checkmark"></span>Неровный свет и шум камеры</label>
+                <label class="custom-checkbox"><input type="checkbox" id="photo-ghosting" checked><span class="checkmark"></span>Просвечивание обратной стороны</label>
+                <label class="custom-checkbox"><input type="checkbox" id="photo-curves" checked><span class="checkmark"></span>Объёмные изгибы листа (3D)</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="preview-panel">
+        <div class="preview-header">
+          <div class="preview-title-area">
+            <h2 class="section-title">Предпросмотр</h2>
+            <div class="zoom-controls">
+              <button id="zoom-out-btn" class="zoom-btn" title="Уменьшить">−</button>
+              <span id="zoom-level">65%</span>
+              <button id="zoom-in-btn" class="zoom-btn" title="Увеличить">+</button>
+              <button id="zoom-fit-btn" class="zoom-btn fit-btn" title="Вписать по высоте">Вписать</button>
+            </div>
+          </div>
+          <div class="export-actions">
+            <button id="download-jpg-btn" class="secondary-btn">Скачать JPG</button>
+            <button id="download-pdf-btn" class="secondary-btn gold-btn">Экспорт в PDF</button>
+          </div>
+        </div>
+
+        <div class="pages-gallery-wrapper">
+          <div id="pages-gallery" class="pages-gallery">
+            <div class="empty-state">
+              <p>Введите текст слева и нажмите генерацию.</p>
+            </div>
+          </div>
+          <div id="render-loader" class="render-loader" style="display: none;">
+            <div class="spinner"></div>
+            <p>Генерация конспекта...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="print-container"></div>
+
+  <script src="jszip.min.js"></script>
+  <script src="backgrounds.js"></script>
+  <script src="render.js"></script>
+  <script src="settings.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

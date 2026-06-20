@@ -1,0 +1,11 @@
+.reveal img,
+.reveal .slides img,
+.reveal .slides section img {
+    max-height: 69vh !important;
+    max-width: 85vw !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    display: block !important;
+}
