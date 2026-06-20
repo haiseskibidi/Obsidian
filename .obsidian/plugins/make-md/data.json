@@ -57,7 +57,8 @@
     "//Zenith игра/Zenith игра/Zenith обучалка",
     "//ТПР",
     "//ТПР/ТПР/Фотки",
-    "//converter"
+    "//converter",
+    "//ТПР/ТПР/Доклад"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
