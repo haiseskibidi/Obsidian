@@ -10,7 +10,7 @@
   "debugLogging": false,
   "powerPointAutosaveEnabled": true,
   "powerPointHideUnsupportedSvgContent": false,
-  "powerPointOpenWithYoloMode": false,
+  "powerPointOpenWithYoloMode": true,
   "powerPointShowInspector": false,
   "disableDocxFiles": false,
   "disablePowerPointFiles": false
