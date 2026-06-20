@@ -1,0 +1,17 @@
+{
+  "authorName": "Mars",
+  "editorLanguage": "en",
+  "showRuler": false,
+  "autosave": true,
+  "createBackupsBeforeSave": false,
+  "defaultZoom": 1,
+  "enableDocxSearchIndex": true,
+  "autoIndexDocxSearch": true,
+  "debugLogging": false,
+  "powerPointAutosaveEnabled": true,
+  "powerPointHideUnsupportedSvgContent": false,
+  "powerPointOpenWithYoloMode": false,
+  "powerPointShowInspector": false,
+  "disableDocxFiles": false,
+  "disablePowerPointFiles": false
+}
