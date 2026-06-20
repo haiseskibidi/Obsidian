@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
   textInput.addEventListener('input', updateCharCount);
   updateTextBtn.addEventListener('click', triggerRender);
 
-  ['font-size', 'line-height', 'margin-top', 'margin-left', 'margin-bottom', 'content-width'].forEach(id => bindRange(id));
+  ['font-size', 'line-height', 'margin-top', 'margin-left', 'margin-left-even', 'margin-bottom', 'content-width'].forEach(id => bindRange(id));
   bindRange('font-diversity', true);
 
   // Font upload and select handlers
@@ -240,10 +240,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // подключаем автосохранение настроек
   if (typeof initSettingsPersistence === 'function') initSettingsPersistence();
 
-  // Pre-generate the default content on load once fonts are ready
-  document.fonts.ready.then(() => {
-    if (typeof window.generateNotebook === 'function') {
-      window.generateNotebook();
-    }
-  });
+  document.fonts.ready.then(() => { if (typeof window.generateNotebook === 'function') window.generateNotebook(); });
 });

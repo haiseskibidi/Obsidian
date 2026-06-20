@@ -2,7 +2,7 @@
 const SETTINGS_KEY = 'pisec_settings';
 
 // все контролы, которые сохраняются
-const RANGE_IDS = ['font-size', 'line-height', 'margin-top', 'margin-left', 'margin-bottom', 'content-width', 'font-diversity'];
+const RANGE_IDS = ['font-size', 'line-height', 'margin-top', 'margin-left', 'margin-left-even', 'margin-bottom', 'content-width', 'font-diversity'];
 const CHECK_IDS = ['jitter-incline', 'jitter-size', 'jitter-margin', 'jitter-baseline', 'photo-lighting', 'photo-ghosting', 'photo-curves'];
 const SELECT_IDS = ['font-select', 'paper-select'];
 

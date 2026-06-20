@@ -75,7 +75,7 @@ async function generateNotebook(onlyFirstPage = false) {
     const bgImage = await loadBackgroundImage($('paper-select').value);
 
     const fontSize = parseInt($('font-size').value), lineHeight = parseInt($('line-height').value);
-    const marginTop = parseInt($('margin-top').value), marginLeft = parseInt($('margin-left').value);
+    const marginTop = parseInt($('margin-top').value), marginLeft = parseInt($('margin-left').value), marginLeftEven = parseInt($('margin-left-even').value);
     const fontDiversity = parseFloat($('font-diversity').value);
     const jitterIncline = $('jitter-incline'), jitterSize = $('jitter-size'), jitterMargin = $('jitter-margin'), jitterBaseline = $('jitter-baseline');
 
@@ -84,7 +84,8 @@ async function generateNotebook(onlyFirstPage = false) {
 
     const handwritingFonts = ['Lorenco', 'Abram', 'Bad Script', 'Benvolio', 'Eskal', 'Gregory', 'Lazy Crazy', 'Merkucio', 'Pag', 'Paris', 'Rozovii', 'Salavat', 'Shlapak', 'Stefano', 'Tibalt'];
 
-    let currentX = marginLeft;
+    let currentMargin = marginLeft;
+    let currentX = currentMargin;
     let currentY = marginTop + fontSize;
     const paddingBottom = parseInt(document.getElementById('margin-bottom').value);
     const contentWidth = parseInt(document.getElementById('content-width').value);
@@ -95,33 +96,20 @@ async function generateNotebook(onlyFirstPage = false) {
     // Helper: Create a new page
     let pageCount = 0;
     function addNewPage() {
-      if (onlyFirstPage && fragment.children.length >= 1) {
-        throw new Error('OnlyFirstPageLimit');
-      }
+      if (onlyFirstPage && fragment.children.length >= 1) throw new Error('OnlyFirstPageLimit');
+      if (canvas && ctx) finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
 
-      if (canvas && ctx) {
-        finalizePageEffects(ctx, canvas, photoLighting, photoCurves);
-      }
-
-      const pageWrapper = document.createElement('div');
-      pageWrapper.className = 'page-wrapper';
-      
-      canvas = document.createElement('canvas');
-      canvas.width = bgImage.width;
-      canvas.height = bgImage.height;
-      canvas.className = 'handwritten-page';
-      canvas.style.setProperty('--page-width', canvas.width + 'px');
-      
+      const pageWrapper = document.createElement('div'); pageWrapper.className = 'page-wrapper';
+      canvas = document.createElement('canvas'); canvas.width = bgImage.width; canvas.height = bgImage.height;
+      canvas.className = 'handwritten-page'; canvas.style.setProperty('--page-width', canvas.width + 'px');
       ctx = canvas.getContext('2d');
       
       // чётные страницы (левые) — зеркалим фон, как в настоящей тетради
       const isLeftPage = pageCount % 2 === 1;
+      currentMargin = isLeftPage ? marginLeftEven : marginLeft;
       if (isLeftPage) {
-        ctx.save();
-        ctx.translate(bgImage.width, 0);
-        ctx.scale(-1, 1);
-        ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
-        ctx.restore();
+        ctx.save(); ctx.translate(bgImage.width, 0); ctx.scale(-1, 1);
+        ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height); ctx.restore();
       } else {
         ctx.drawImage(bgImage, 0, 0, bgImage.width, bgImage.height);
       }
@@ -132,37 +120,27 @@ async function generateNotebook(onlyFirstPage = false) {
       }
       
       if (photoGhosting && photoGhosting.checked && paragraphs.length > 0) {
-        ctx.save();
-        ctx.fillStyle = '#50608c';
-        ctx.globalAlpha = 0.095;
-        ctx.filter = 'blur(3.5px)';
-        ctx.translate(bgImage.width, 0);
-        ctx.scale(-1, 1);
-        ctx.font = `${fontSize * 0.95}px "${fontName}"`;
+        ctx.save(); ctx.fillStyle = '#50608c'; ctx.globalAlpha = 0.095; ctx.filter = 'blur(3.5px)';
+        ctx.translate(bgImage.width, 0); ctx.scale(-1, 1); ctx.font = `${fontSize * 0.95}px "${fontName}"`;
         
         let ghostY = marginTop + fontSize * 1.5;
-        const ghostParas = paragraphs.slice(0, 10);
-        ghostParas.forEach(para => {
+        paragraphs.slice(0, 10).forEach(para => {
           if (para.trim()) {
-            ctx.fillText(para.split('').reverse().join(''), 150, ghostY);
-            ghostY += lineHeight * 1.15;
+            ctx.fillText(para.split('').reverse().join(''), 150, ghostY); ghostY += lineHeight * 1.15;
           }
         });
         ctx.restore();
       }
       
-      ctx.fillStyle = window.activeColor || '#4260bb';
-      ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = window.activeColor || '#4260bb'; ctx.textBaseline = 'alphabetic';
       ctx.filter = 'blur(0.2px) contrast(1.05)'; ctx.globalAlpha = 0.94;
-      pageWrapper.appendChild(canvas);
-      fragment.appendChild(pageWrapper);
-      currentX = marginLeft; currentY = marginTop + fontSize;
+      pageWrapper.appendChild(canvas); fragment.appendChild(pageWrapper);
+      currentX = currentMargin; currentY = marginTop + fontSize;
     }
     addNewPage();
     paragraphs.forEach((paragraph, pIdx) => {
       if (paragraph.trim() === '') {
-        currentY += lineHeight;
-        if (currentY > bgImage.height - paddingBottom) addNewPage();
+        currentY += lineHeight; if (currentY > bgImage.height - paddingBottom) addNewPage();
         return;
       }
 
@@ -170,7 +148,7 @@ async function generateNotebook(onlyFirstPage = false) {
       const words = paragraph.split(' ');
       
       // Apply slight margin jitter for the beginning of paragraph
-      currentX = marginLeft + (jitterMargin.checked ? Math.random() * 15 - 5 : 0);
+      currentX = currentMargin + (jitterMargin.checked ? Math.random() * 15 - 5 : 0);
       // базовая линия: 3 гармоники + линейный дрифт + прыжок между словами
       let wP1 = Math.random()*6.28, wP2 = Math.random()*6.28, wP3 = Math.random()*6.28;
       let wA1 = 1+Math.random()*1.5, wA2 = 0.5+Math.random(), wA3 = 0.3+Math.random()*0.5;
@@ -182,11 +160,11 @@ async function generateNotebook(onlyFirstPage = false) {
         const wordWidth = ctx.measureText(word + ' ').width;
 
         // Wrap lines if we exceed the max content width limit
-        const rightBoundary = marginLeft + contentWidth;
+        const rightBoundary = currentMargin + contentWidth;
         if (currentX + wordWidth > rightBoundary) {
           currentY += lineHeight;
           // Apply slight margin jitter for wrapped lines
-          currentX = marginLeft + (jitterMargin.checked ? Math.random() * 10 - 3 : 0);
+          currentX = currentMargin + (jitterMargin.checked ? Math.random() * 10 - 3 : 0);
           wP1 = Math.random()*6.28; wP2 = Math.random()*6.28; wP3 = Math.random()*6.28;
           wA1 = 1+Math.random()*1.5; wA2 = 0.5+Math.random(); wA3 = 0.3+Math.random()*0.5;
           wF1 = 0.004+Math.random()*0.004; wF2 = 0.01+Math.random()*0.01; wF3 = 0.025+Math.random()*0.015;
@@ -208,7 +186,7 @@ async function generateNotebook(onlyFirstPage = false) {
           const charWidth = ctx.measureText(char).width;
 
           // Apply translations for rotation around the character baseline
-          const bx = currentX - marginLeft;
+          const bx = currentX - currentMargin;
           const baselineShift = (jitterBaseline && jitterBaseline.checked)
             ? Math.sin(bx*wF1+wP1)*wA1 + Math.sin(bx*wF2+wP2)*wA2 + Math.sin(bx*wF3+wP3)*wA3 + bx*lineDrift + wordJump
             : 0;
