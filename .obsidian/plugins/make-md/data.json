@@ -56,8 +56,7 @@
     "/",
     "//Визуал_Гиггер",
     "//Ежедневник",
-    "//ТПР",
-    "//ТПР/ТПР/Доклад"
+    "//Гиггер"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -77,8 +76,6 @@
     "_assets",
     "_blocks"
   ],
-  "newFileLocation": "root",
-  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
