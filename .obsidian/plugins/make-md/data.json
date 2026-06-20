@@ -38,7 +38,6 @@
   "vaultSelector": true,
   "deleteFileOption": "trash",
   "expandedSpaces": [
-    "/",
     "//Excalidraw",
     "//Daily",
     "//Templates",
@@ -54,7 +53,9 @@
     "//ТПР/ТПР/Фотки",
     "//converter",
     "//Ежедневник",
-    "//WEB/WEB/Архитектура"
+    "//WEB/WEB/Архитектура",
+    "/",
+    "//ТПР"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -67,8 +68,7 @@
     "ТПР/Весь конспект ТПР.txt",
     "ТПР/ТПР конспект ПДФ.pdf",
     "ТПР/Фотки конспекта/20фоток_без_тени.zip",
-    "ТПР/Фотки конспекта/last.zip",
-    "ТПР/converter"
+    "ТПР/Фотки конспекта/last.zip"
   ],
   "hiddenExtensions": [
     ".mdb",
