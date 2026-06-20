@@ -81,6 +81,7 @@ async function generateNotebook(onlyFirstPage = false) {
 
     const fontKey = $('font-select').value;
     const fontName = fontKey === 'custom' ? window.customFontFamily : (window.fontMap[fontKey] || 'Lorenco');
+    if (fontName) await document.fonts.load(`${fontSize}px "${fontName}"`);
 
     const handwritingFonts = ['Lorenco', 'Abram', 'Bad Script', 'Benvolio', 'Eskal', 'Gregory', 'Lazy Crazy', 'Merkucio', 'Pag', 'Paris', 'Rozovii', 'Salavat', 'Shlapak', 'Stefano', 'Tibalt'];
 
@@ -120,7 +121,13 @@ async function generateNotebook(onlyFirstPage = false) {
       }
       
       if (photoGhosting && photoGhosting.checked && paragraphs.length > 0) {
-        ctx.save(); ctx.fillStyle = '#50608c'; ctx.globalAlpha = 0.095; ctx.filter = 'blur(3.5px)';
+        ctx.save();
+        // Clip to the right of the margin line to prevent text bleeding into the margin
+        ctx.beginPath();
+        ctx.rect(currentMargin, 0, bgImage.width - currentMargin, bgImage.height);
+        ctx.clip();
+        
+        ctx.fillStyle = window.activeColor || '#4260bb'; ctx.globalAlpha = 0.18; ctx.filter = 'blur(2.8px)';
         ctx.translate(bgImage.width, 0); ctx.scale(-1, 1); ctx.font = `${fontSize * 0.95}px "${fontName}"`;
         
         let ghostY = marginTop + fontSize * 1.5;
