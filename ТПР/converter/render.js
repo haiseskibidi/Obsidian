@@ -131,10 +131,16 @@ async function generateNotebook(onlyFirstPage = false) {
         ctx.translate(bgImage.width, 0); ctx.scale(-1, 1); ctx.font = `${fontSize * 0.95}px "${fontName}"`;
         
         let ghostY = marginTop + fontSize * 1.5;
-        paragraphs.slice(0, 10).forEach(para => {
+        // Симулируем реальный лист бумаги: нечетная страница просвечивает текст четной, и наоборот
+        const currentPageIdx = pageCount - 1;
+        const ghostPageIdx = (currentPageIdx % 2 === 0) ? currentPageIdx + 1 : currentPageIdx - 1;
+        const startIdx = ghostPageIdx * 22;
+        const pageParas = paragraphs.slice(startIdx, startIdx + 22);
+        pageParas.forEach(para => {
           if (para.trim()) {
-            ctx.fillText(para.split('').reverse().join(''), 150, ghostY); ghostY += lineHeight * 1.15;
+            ctx.fillText(para.split('').reverse().join(''), 150, ghostY);
           }
+          ghostY += lineHeight * 1.12;
         });
         ctx.restore();
       }
