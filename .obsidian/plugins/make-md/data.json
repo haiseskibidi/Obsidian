@@ -52,10 +52,12 @@
     "//Zenith игра/Zenith игра/Zenith обучалка",
     "//ТПР/ТПР/Фотки",
     "//converter",
-    "//Ежедневник",
     "//WEB/WEB/Архитектура",
     "/",
-    "//ТПР"
+    "//Визуал_Гиггер",
+    "//Ежедневник",
+    "//ТПР",
+    "//ТПР/ТПР/Доклад"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -75,6 +77,8 @@
     "_assets",
     "_blocks"
   ],
+  "newFileLocation": "root",
+  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
