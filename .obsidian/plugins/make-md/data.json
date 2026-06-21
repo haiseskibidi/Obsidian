@@ -54,7 +54,6 @@
     "//WEB/WEB/Архитектура",
     "/",
     "//Визуал_Гиггер",
-    "//Ежедневник",
     "//Гиггер",
     "//Zenith игра",
     "//ТПР"
@@ -68,7 +67,6 @@
     "scripts",
     "Tags",
     "ТПР/Весь конспект ТПР.txt",
-    "ТПР/ТПР конспект ПДФ.pdf",
     "ТПР/Фотки конспекта/20фоток_без_тени.zip",
     "ТПР/Фотки конспекта/last.zip"
   ],
@@ -77,8 +75,6 @@
     "_assets",
     "_blocks"
   ],
-  "newFileLocation": "root",
-  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
