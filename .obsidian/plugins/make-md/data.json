@@ -49,14 +49,15 @@
     "//СкриншотыФотки",
     "//Zenith игра/Zenith игра/Zenith обучалка/Zenith игра/Zenith обучалка/Железо и Архитектура ПК",
     "//Zenith обучалка",
-    "//Zenith игра/Zenith игра/Zenith обучалка",
     "//ТПР/ТПР/Фотки",
     "//converter",
     "//WEB/WEB/Архитектура",
     "/",
     "//Визуал_Гиггер",
-    "//Ежедневник",
-    "//Гиггер"
+    "//Гиггер",
+    "//Zenith игра",
+    "//ТПР",
+    "//Ежедневник"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -67,7 +68,6 @@
     "scripts",
     "Tags",
     "ТПР/Весь конспект ТПР.txt",
-    "ТПР/ТПР конспект ПДФ.pdf",
     "ТПР/Фотки конспекта/20фоток_без_тени.zip",
     "ТПР/Фотки конспекта/last.zip"
   ],
@@ -76,6 +76,8 @@
     "_assets",
     "_blocks"
   ],
+  "newFileLocation": "root",
+  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
