@@ -56,7 +56,8 @@
     "/",
     "//Визуал_Гиггер",
     "//Ежедневник",
-    "//Гиггер"
+    "//Гиггер",
+    "//Zenith игра"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
@@ -76,6 +77,8 @@
     "_assets",
     "_blocks"
   ],
+  "newFileLocation": "root",
+  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
