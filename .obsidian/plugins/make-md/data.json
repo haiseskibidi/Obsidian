@@ -45,7 +45,10 @@
   "spacesFolder": "Tags",
   "suppressedWarnings": [],
   "spaceSubFolder": ".space",
-  "hiddenFiles": [],
+  "hiddenFiles": [
+    "scripts",
+    "Tags"
+  ],
   "hiddenExtensions": [
     ".mdb",
     "_assets",
