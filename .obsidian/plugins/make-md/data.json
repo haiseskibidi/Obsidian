@@ -39,7 +39,8 @@
   "deleteFileOption": "trash",
   "expandedSpaces": [
     "/",
-    "//Цвета"
+    "//Цвета",
+    "//Ежедневник"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
