@@ -41,7 +41,8 @@
     "/",
     "//Цвета",
     "//Ежедневник",
-    "//WEB"
+    "//WEB",
+    "//Шаблоны"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
