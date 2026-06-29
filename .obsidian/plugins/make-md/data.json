@@ -38,9 +38,7 @@
   "vaultSelector": true,
   "deleteFileOption": "trash",
   "expandedSpaces": [
-    "/",
-    "//WEB",
-    "//ТПР"
+    "/"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
