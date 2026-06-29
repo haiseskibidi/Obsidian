@@ -39,9 +39,6 @@
   "deleteFileOption": "trash",
   "expandedSpaces": [
     "/",
-    "//Цвета",
-    "//WEB",
-    "//Ежедневник",
     "//WEB/WEB/Архитектура"
   ],
   "expandFolderOnClick": true,
@@ -57,6 +54,8 @@
     "_assets",
     "_blocks"
   ],
+  "newFileLocation": "root",
+  "newFileFolderPath": "",
   "inlineBacklinks": false,
   "inlineContext": true,
   "inlineBacklinksExpanded": false,
