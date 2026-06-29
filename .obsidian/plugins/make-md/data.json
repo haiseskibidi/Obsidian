@@ -38,17 +38,13 @@
   "vaultSelector": true,
   "deleteFileOption": "trash",
   "expandedSpaces": [
-    "/",
-    "//WEB/WEB/Архитектура"
+    "/"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
   "suppressedWarnings": [],
   "spaceSubFolder": ".space",
-  "hiddenFiles": [
-    "scripts",
-    "Tags"
-  ],
+  "hiddenFiles": [],
   "hiddenExtensions": [
     ".mdb",
     "_assets",
@@ -74,11 +70,11 @@
   "indexSVG": false,
   "readableLineWidth": true,
   "autoAddContextsToSubtags": true,
-  "releaseNotesPrompt": 0.999,
+  "releaseNotesPrompt": 0.8,
   "enableDefaultSpaces": true,
   "showSpacePinIcon": true,
   "experimental": false,
-  "systemName": "Me",
+  "systemName": "Vault",
   "defaultSpaceTemplate": "",
   "selectedKit": "default",
   "actionMaxSteps": 100,
@@ -105,7 +101,7 @@
     "emojiTriggerChar": ":",
     "flowState": false
   },
-  "firstLaunch": true,
+  "firstLaunch": false,
   "notesPreview": false,
   "editStickerInSidebar": true,
   "overrideNativeMenu": false,
