@@ -4,6 +4,8 @@
   "showRibbon": true,
   "interfaceFontFamily": "IBM Plex Sans",
   "enabledCssSnippets": [
-    "slides-fit"
-  ]
+    "slides-fit",
+    "dark-pdf"
+  ],
+  "theme": "obsidian"
 }
