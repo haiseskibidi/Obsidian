@@ -38,7 +38,8 @@
   "vaultSelector": true,
   "deleteFileOption": "trash",
   "expandedSpaces": [
-    "/"
+    "/",
+    "//ПГС"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
