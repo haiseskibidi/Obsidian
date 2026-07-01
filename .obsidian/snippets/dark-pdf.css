@@ -1,0 +1,22 @@
+/* Настройка самой печатной страницы А4 */
+@page {
+    /* Задаем нормальные отступы сверху/снизу (20mm) и по бокам (15mm) */
+    margin: 20mm 15mm !important; 
+    
+    /* Жестко требуем от принтера закрасить эти поля темным цветом */
+    background-color: #1e1e1e !important;
+    background: #1e1e1e !important;
+}
+
+@media print {
+    /* Красим холст документа */
+    html, body, .print, .markdown-preview-view, .markdown-rendered {
+        background-color: #1e1e1e !important;
+        background: #1e1e1e !important;
+        color: #e3e3e3 !important;
+        
+        /* Убираем внутренние паддинги, чтобы они не конфликтовали с margin от @page */
+        padding: 0 !important; 
+        margin: 0 !important;
+    }
+}
